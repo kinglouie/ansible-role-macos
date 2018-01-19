@@ -1,0 +1,41 @@
+---
+
+- name: "Show full URL in the address bar ({{ safari_show_full_url_in_address_bar }})"
+  osx_defaults:
+    domain: com.apple.Safari
+    key: ShowFullURLInSmartSearchField
+    type: bool
+    value: "{{ safari_show_full_url_in_address_bar|bool }}"
+  notify: Restart Safari
+
+- name: "Open 'safe' files automatically ({{ safari_open_safe_files_automatically }})"
+  osx_defaults:
+    domain: com.apple.Safari
+    key: AutoOpenSafeDownloads
+    type: bool
+    value: "{{ safari_open_safe_files_automatically|bool }}"
+  notify: Restart Safari
+
+- name: "Enable status bar ({{ safari_enable_status_bar }})"
+  osx_defaults:
+    domain: com.apple.Safari
+    key: ShowOverlayStatusBar
+    type: bool
+    value: "{{ safari_enable_status_bar|bool }}"
+  notify: Restart Safari
+
+- name: "Enable developer menu ({{ safari_enable_developer_menu }})"
+  osx_defaults:
+    domain: com.apple.Safari
+    key: IncludeDevelopMenu
+    type: bool
+    value: "{{ safari_enable_developer_menu|bool }}"
+  notify: Restart Safari
+
+- name: "Safari autofill passwords ({{ safari_autofill_passwords }})"
+  osx_defaults:
+    domain: com.apple.Safari
+    key: AutoFillPasswords
+    type: bool
+    value: "{{ safari_autofill_passwords|bool }}"
+  notify: Restart Safari

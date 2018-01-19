@@ -1,0 +1,10 @@
+---
+# Disable Secure Keyboard Entry
+# See: https://security.stackexchange.com/a/47786/8918
+- name: Disable Secure Keyboard Entry
+  osx_defaults:
+    domain: com.apple.terminal
+    key: SecureKeyboardEntry
+    type: bool
+    value: false
+  notify: Restart Terminal

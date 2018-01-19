@@ -1,0 +1,33 @@
+---
+- import_tasks: finder.yml
+  tags: [finder]
+
+- import_tasks: screensaver.yml
+  tags: [screensaver]
+
+- import_tasks: performance.yml
+  tags: [performance]
+
+- import_tasks: hostname.yml
+  tags: [hostname]
+
+- import_tasks: system.yml
+  tags: [system]
+
+- import_tasks: safari.yml
+  tags: [safari]
+
+- import_tasks: default-applications.yml
+  tags: [default-applications]
+
+- import_tasks: dock.yml
+  tags: [dock]
+
+- import_tasks: mail.yml
+  tags: [mail]
+
+ - import_tasks: terminal.yml
+  tags: [terminal] 
+
+- import_tasks: textedit.yml
+  tags: [textedit]

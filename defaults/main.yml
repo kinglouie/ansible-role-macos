@@ -1,0 +1,74 @@
+---
+
+system_disable_dashboard: yes
+system_enable_auto_correct: no
+system_enable_smart_quotes: no
+system_enable_smart_dashes: no
+system_enable_automatic_capitalization: no
+system_save_application_state_on_quit: yes
+system_expand_save_panel_by_default: yes
+system_expand_print_panel_by_default: yes
+system_enable_springloading_directories: yes
+system_springloading_directories_delay: 0
+system_disable_dsstore_on_network_shares: yes
+system_disable_dsstore_on_usb_drives: yes
+system_disable_disk_image_verification: yes
+system_doubleclick_on_titlebar_action: "Minimize" # other val is "Maximize"
+system_interface_style: "Dark" # other val is "Light"
+system_enable_full_keyboard_access: yes
+system_enable_subpixel_font_rendering: yes
+system_show_all_file_extensions: yes
+system_enable_focus_ring: no
+system_key_repeat_rate: 1
+system_initial_key_repeat_delay: 10
+system_enable_press_and_hold: no
+system_enable_crash_reporter: no
+system_enable_startup_sound: no
+system_save_new_docs_to_icloud: no
+system_enable_ssh: yes
+system_enable_quarantine: no
+
+hostname_computername: null
+hostname_hostname: null
+hostname_localhostname: null
+
+safari_show_full_url_in_address_bar: yes
+safari_open_safe_files_automatically: no
+safari_enable_status_bar: yes
+safari_enable_developer_menu: yes
+safari_autofill_passwords: no
+
+mail_address_include_name_on_pasteboard: no
+
+finder_show_file_extensions_warning: no
+finder_warn_before_emptying_the_trash: no
+finder_show_all_files: yes
+finder_keep_folders_on_top: yes
+finder_show_full_path_in_titlebar: yes
+finder_show_pathbar: yes
+finder_show_statusbar: yes
+finder_enable_quit_menu_item: yes
+finder_default_view_style: "Nlsv" # other vals: "icnv", "clmv", "Flwv"
+finder_show_external_harddrives_on_desktop: yes
+finder_show_harddrives_on_desktop: yes
+finder_show_mounted_servers_on_desktop: yes
+finder_show_removable_media_on_desktop: yes
+finder_iconview_show_item_info: yes
+finder_iconview_show_label_on_bottom: no
+finder_hide_user_library: no
+finder_hide_system_volumes: no
+finder_iconview_arrange_by: "grid"
+finder_iconview_grid_spacing: 60
+finder_iconview_icon_size: 50
+
+dock_tile_size: 36
+dock_show_idicator_lights: yes
+dock_hidden_items_translucent: yes
+dock_fade_in_time: 0
+dock_rearrange_spaces_by_last_use: no
+dock_autohide: yes
+dock_apps_force_install: no
+dock_apps_remove_undefined: yes
+dock_apps: []
+dock_spacers: []
+

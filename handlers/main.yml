@@ -1,0 +1,16 @@
+---
+
+- name: Restart Finder
+  shell: killall Finder
+
+- name: Restart Dock
+  shell: killall Dock
+
+- name: Restart Safari
+  shell: killall Safari
+
+- name: Restart Terminal
+  shell: killall Terminal
+
+- name: Restart TextEdit
+  shell: killall TextEdit

@@ -1,0 +1,118 @@
+---
+
+- name: Set dock tilesize ({{ dock_tile_size }}).
+  osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: float
+    value: "{{ dock_tile_size | float }}"
+  notify: Restart Dock
+
+- name: Show indicator lights for open applications in the dock ({{ dock_show_idicator_lights }}).
+  osx_defaults:
+    domain: com.apple.dock
+    key: show-process-indicators
+    type: bool
+    value: "{{ dock_show_idicator_lights | bool }}"
+  notify: Restart Dock
+
+- name: Make dock icons of hidden applications translucent ({{ dock_hidden_items_translucent }}).
+  osx_defaults:
+    domain: com.apple.dock
+    key: showhidden
+    type: bool
+    value: "{{ dock_hidden_items_translucent | bool }}"
+  notify: Restart Dock
+
+- name: Set dock fade-in time ({{ dock_fade_in_time }}).
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide-delay
+    type: float
+    value: "{{ dock_fade_in_time | float }}"
+  notify: Restart Dock
+
+- name: Rearrange spaces by last use ({{ dock_rearrange_spaces_by_last_use }}).
+  osx_defaults:
+    domain: com.apple.dock
+    key: mru-spaces
+    type: bool
+    value: "{{ dock_rearrange_spaces_by_last_use | bool }}"
+  notify: Restart Dock
+
+- name: Automatically hide dock ({{ dock_autohide }}).
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: "{{ dock_autohide | bool }}"
+  notify: Restart Dock
+
+
+
+# DOCKITEMS
+
+- name: Ensure dockutil is installed.
+  homebrew:
+    name: dockutil
+    state: latest
+
+- name: Test existence of configured dock apps.
+  stat:
+    path: "{{ item.path }}"
+  with_items: "{{ dock_apps }}"
+  register: dock_apps_stat
+  when: not dock_apps_force_install
+
+- name: Set dock items to install to all configured items.
+  set_fact:
+    dock_apps_to_install: "{{ dock_apps }}"
+  when: dock_apps_force_install
+
+- name: Set dock items to install only to existing items.
+  set_fact:
+    dock_apps_to_install: "{{ dock_apps_stat.results | selectattr('stat.exists', 'equalto', True) | map(attribute='item') | list }}"
+  when: not dock_apps_force_install
+  
+- name: Get apps currently in dock.
+  shell: "dockutil --list | grep 'persistent-apps' | cut -d$'\t' -f1"
+  register: dock_current_apps
+  changed_when: false
+  check_mode: no
+
+- name: Get undefined items in dock.
+  set_fact:
+    dock_undefined_items: "{{ dock_current_apps.stdout_lines | difference(dock_apps_to_install | map(attribute='name') | list) }}"
+
+- name: Remove dock spacer tiles.
+  shell: "dockutil --remove spacer-tiles --no-restart"
+  notify: Restart Dock
+
+- name: Remove undefined dock items.
+  shell: "dockutil --remove '{{ item }}' --no-restart"
+  with_items: "{{ dock_undefined_items }}"
+  when: dock_apps_remove_undefined
+  notify: Restart Dock
+
+- name: Add configured dock items.
+  shell: "dockutil --add '{{ item.1.path }}' --label '{{ item.1.name }}' --no-restart {{ item.1.args | default('') }}"
+  with_indexed_items: "{{ dock_apps_to_install }}"
+  when: dock_current_apps.stdout.find(item.1.name) == -1
+  notify: Restart Dock
+
+- name: Get current dock items.
+  shell: "dockutil --list | grep 'persistent-apps' | cut -d$'\t' -f1"
+  register: dock_current_apps
+  changed_when: false
+  check_mode: no
+
+- name: Ensure dock item order.
+  shell: dockutil --move '{{ item.1.name }}' --position {{ item.0 | int + 1 }} --no-restart
+  with_indexed_items: "{{ dock_apps_to_install }}"
+  when: dock_current_apps.stdout_lines[item.0].find(item.1.name) == -1
+  notify: Restart Dock
+
+- name: Add configured spacer tiles to dock.
+  shell: "dockutil --add '' --type spacer --section apps --after {{ item.1.after }} --no-restart"
+  with_indexed_items: "{{ dock_spacers }}"
+  notify: Restart Dock

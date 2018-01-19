@@ -1,0 +1,169 @@
+---
+
+- name: Show extension warning ({{ finder_show_file_extensions_warning }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: FXEnableExtensionChangeWarning
+    type: bool
+    value: "{{ finder_show_file_extensions_warning|bool }}"
+  notify: Restart Finder
+
+- name: Warn before emptying the trash ({{ finder_warn_before_emptying_the_trash }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: WarnOnEmptyTrash
+    type: bool
+    value: "{{ finder_warn_before_emptying_the_trash|bool }}"
+  notify: Restart Finder
+
+- name: Show All Files ({{ finder_show_all_files }})
+  osx_defaults:
+    domain: com.apple.finder
+    key: AppleShowAllFiles
+    type: bool
+    value: "{{ finder_show_all_files|bool }}"
+  notify: Restart Finder
+
+- name: Keep folders on top when sorting by name ({{ finder_keep_folders_on_top }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: _FXSortFoldersFirst
+    type: bool
+    value: "{{ finder_keep_folders_on_top|bool }}"
+  notify: Restart Finder
+
+- name: Show full path in finder titlebar ({{ finder_show_full_path_in_titlebar }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: _FXShowPosixPathInTitle
+    type: bool
+    value: "{{ finder_show_full_path_in_titlebar|bool }}"
+  notify: Restart Finder
+
+- name: Show pathbar in bottom of finder ({{ finder_show_pathbar }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowPathbar
+    type: bool
+    value: "{{ finder_show_pathbar|bool }}"
+  notify: Restart Finder
+
+- name: Show statusbar ({{ finder_show_statusbar }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowStatusBar
+    type: bool
+    value: "{{ finder_show_statusbar|bool }}"
+  notify: Restart Finder
+
+- name: When performing a search, search the current folder by default.
+  osx_defaults:
+    domain: com.apple.finder
+    key: FXDefaultSearchScope
+    type: string
+    value: "SCcf"
+  notify: Restart Finder
+
+- name: Enable quit menu item ({{ finder_enable_quit_menu_item }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: QuitMenuItem
+    type: bool
+    value: "{{ finder_enable_quit_menu_item|bool }}"
+  notify: Restart Finder
+
+- name: Default view style ({{ finder_default_view_style }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: FXPreferredViewStyle
+    type: string
+    value: "{{ finder_default_view_style }}"
+  notify: Restart Finder
+
+- name: Show external harddrives on desktop ({{ finder_show_external_harddrives_on_desktop }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowExternalHardDrivesOnDesktop
+    type: bool
+    value: "{{ finder_show_external_harddrives_on_desktop|bool }}"
+  notify: Restart Finder
+
+- name: Show harddrives on desktop ({{ finder_show_harddrives_on_desktop }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowHardDrivesOnDesktop
+    type: bool
+    value: "{{ finder_show_harddrives_on_desktop|bool }}"
+  notify: Restart Finder
+
+- name: Show mounted servers on desktop ({{ finder_show_mounted_servers_on_desktop }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowMountedServersOnDesktop
+    type: bool
+    value: "{{ finder_show_mounted_servers_on_desktop|bool }}"
+  notify: Restart Finder
+
+- name: Show removable media on desktop ({{ finder_show_removable_media_on_desktop }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowRemovableMediaOnDesktop
+    type: bool
+    value: "{{ finder_show_removable_media_on_desktop|bool }}"
+  notify: Restart Finder
+
+- name: Hide user library folder ({{ finder_hide_user_library }}). 
+  command: "chflags {{ 'hidden' if finder_hide_user_library else 'nohidden' }} ~/Library/"
+  notify: Restart Finder
+
+- name: Hide system volumes folder ({{ finder_hide_system_volumes }}).
+  command: "chflags {{ 'hidden' if finder_hide_system_volumes else 'nohidden' }} /Volumes"
+  become: true
+  notify: Restart Finder
+
+- name: Show item info near icons on the desktop and in other icon views ({{ finder_iconview_show_item_info }}).
+  command: /usr/libexec/PlistBuddy -c "Set :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
+  with_items:
+    - "DesktopViewSettings:IconViewSettings:showItemInfo {{ finder_iconview_show_item_info|bool }}"
+    - "StandardViewSettings:IconViewSettings:showItemInfo {{ finder_iconview_show_item_info|bool }}"
+  notify: Restart Finder
+
+- name: Show item info to the right of the icons on the desktop ({{ finder_iconview_show_label_on_bottom }}).
+  command: /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom {{ finder_iconview_show_label_on_bottom|bool }}" ~/Library/Preferences/com.apple.finder.plist
+  notify: Restart Finder
+
+- name: "Expand the following File Info panes: “General”, “Open with”, and “Sharing & Permissions”."
+  shell: defaults write com.apple.finder FXInfoPanesExpanded -dict \
+          General -bool true \
+          OpenWith -bool true \
+          Privileges -bool true
+  notify: Restart Finder
+
+- name: Enable QuickLook text selection ({{ finder_enable_quicklook_text_selection }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: QLEnableTextSelection
+    type: "{{ finder_enable_quicklook_text_selection | bool }}"
+    value: true
+  notify: Restart Finder
+
+- name: Set arrange by for icons on the desktop and in other icon views ({{ finder_iconview_arrange_by }}).
+  command: /usr/libexec/PlistBuddy -c "Set :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
+  with_items:
+    - "DesktopViewSettings:IconViewSettings:arrangeBy {{ finder_iconview_arrange_by }}"
+    - "StandardViewSettings:IconViewSettings:arrangeBy {{ finder_iconview_arrange_by }}"
+  notify: Restart Finder
+
+- name: Set grid spacing for icons on the desktop and in other icon views ({{ finder_iconview_grid_spacing }}).
+  command: /usr/libexec/PlistBuddy -c "Set :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
+  with_items:
+    - DesktopViewSettings:IconViewSettings:gridSpacing {{ finder_iconview_grid_spacing }}"
+    - StandardViewSettings:IconViewSettings:gridSpacing {{ finder_iconview_grid_spacing }}"
+  notify: Restart Finder
+
+- name: Set size of icons on the desktop and in other icon views ({{ finder_iconview_icon_size }}).
+  command: /usr/libexec/PlistBuddy -c "Set :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
+  with_items:
+    - "DesktopViewSettings:IconViewSettings:iconSize {{ finder_iconview_icon_size }}"
+    - "StandardViewSettings:IconViewSettings:iconSize {{ finder_iconview_icon_size }}"
+  notify: Restart Finder

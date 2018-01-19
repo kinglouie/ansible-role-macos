@@ -1,0 +1,19 @@
+---
+
+- name: Disable hibernation (speeds up entering sleep mode).
+  become: true
+  shell: pmset -a hibernatemode 0
+  changed_when: false
+
+- name: Disable sudden motion sensor.
+  become: true
+  shell: pmset -a sms 0
+  changed_when: false
+
+- name: Turn off network indexing
+  become: true
+  osx_defaults:
+    domain: /Library/Preferences/com.apple.SpotlightServer.plist
+    key: ExternalVolumesIgnore
+    type: bool
+    value: true

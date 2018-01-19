@@ -1,0 +1,15 @@
+---
+
+- name: Ask for a password when leaving the screensaver.
+  osx_defaults:
+    domain: com.apple.screensaver
+    key: askForPassword
+    type: int
+    value: 1
+
+- name: Set password delay to 5 seconds.
+  osx_defaults:
+    domain: com.apple.screensaver
+    key: askForPasswordDelay
+    type: float
+    value: 5
