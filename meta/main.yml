@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: KingLoui
+  description: MacOS settings
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.9
+  platforms:
+    - name: MacOSX
+      versions:
+        - all
+        - any
+  galaxy_tags:
+    - system
