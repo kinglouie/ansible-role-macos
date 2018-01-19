@@ -1,4 +1,4 @@
-Ansible Role: Homebrew
+Ansible Role: MacOS
 ======================
 
 Configures MacOS by mostly using the defaults module
@@ -6,7 +6,7 @@ Configures MacOS by mostly using the defaults module
 Requirements
 ------------
 
-none
+homebrew
 
 Role Variables
 --------------
