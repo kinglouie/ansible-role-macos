@@ -143,8 +143,8 @@
   osx_defaults:
     domain: com.apple.finder
     key: QLEnableTextSelection
-    type: "{{ finder_enable_quicklook_text_selection | bool }}"
-    value: true
+    type: bool
+    value: "{{ finder_enable_quicklook_text_selection | bool }}"
   notify: Restart Finder
 
 - name: Set arrange by for icons on the desktop and in other icon views ({{ finder_iconview_arrange_by }}).
@@ -157,8 +157,8 @@
 - name: Set grid spacing for icons on the desktop and in other icon views ({{ finder_iconview_grid_spacing }}).
   command: /usr/libexec/PlistBuddy -c "Set :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
   with_items:
-    - DesktopViewSettings:IconViewSettings:gridSpacing {{ finder_iconview_grid_spacing }}"
-    - StandardViewSettings:IconViewSettings:gridSpacing {{ finder_iconview_grid_spacing }}"
+    - "DesktopViewSettings:IconViewSettings:gridSpacing {{ finder_iconview_grid_spacing }}"
+    - "StandardViewSettings:IconViewSettings:gridSpacing {{ finder_iconview_grid_spacing }}"
   notify: Restart Finder
 
 - name: Set size of icons on the desktop and in other icon views ({{ finder_iconview_icon_size }}).

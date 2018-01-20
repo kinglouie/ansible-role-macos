@@ -8,9 +8,16 @@
 
 - name: Restart Safari
   shell: killall Safari
+  failed_when: false
+
+- name: Restart Mail
+  shell: killall Mail
+  failed_when: false
 
 - name: Restart Terminal
   shell: killall Terminal
+  failed_when: false
 
 - name: Restart TextEdit
   shell: killall TextEdit
+  failed_when: false
