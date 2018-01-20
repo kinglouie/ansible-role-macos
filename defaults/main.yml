@@ -19,8 +19,8 @@ system_enable_full_keyboard_access: yes
 system_enable_subpixel_font_rendering: yes
 system_show_all_file_extensions: yes
 system_enable_focus_ring: no
-system_key_repeat_rate: 1
-system_initial_key_repeat_delay: 10
+system_key_repeat_rate: 10
+system_initial_key_repeat_delay: 100
 system_enable_press_and_hold: no
 system_enable_crash_reporter: no
 system_enable_startup_sound: no
@@ -63,7 +63,7 @@ finder_iconview_grid_spacing: 60
 finder_iconview_icon_size: 50
 finder_enable_quicklook_text_selection: yes
 
-dock_tile_size: 36
+dock_tile_size: 50
 dock_show_idicator_lights: yes
 dock_hidden_items_translucent: yes
 dock_fade_in_time: 0
