@@ -63,6 +63,8 @@
   with_items: "{{ dock_apps }}"
   register: dock_apps_stat
   when: not dock_apps_force_install
+  changed_when: false
+  failed_when: false
 
 - name: Set dock items to install to all configured items.
   set_fact:
@@ -87,6 +89,7 @@
 - name: Remove dock spacer tiles.
   shell: "dockutil --remove spacer-tiles --no-restart"
   notify: Restart Dock
+  changed_when: false
 
 - name: Remove undefined dock items.
   shell: "dockutil --remove '{{ item }}' --no-restart"
@@ -116,3 +119,4 @@
   shell: "dockutil --add '' --type spacer --section apps --after {{ item.1.after }} --no-restart"
   with_indexed_items: "{{ dock_spacers }}"
   notify: Restart Dock
+  changed_when: false

@@ -9,18 +9,18 @@ system_save_application_state_on_quit: yes
 system_expand_save_panel_by_default: yes
 system_expand_print_panel_by_default: yes
 system_enable_springloading_directories: yes
-system_springloading_directories_delay: 0
+system_springloading_directories_delay: 1
 system_disable_dsstore_on_network_shares: yes
 system_disable_dsstore_on_usb_drives: yes
 system_disable_disk_image_verification: yes
-system_doubleclick_on_titlebar_action: "Minimize" # other val is "Maximize"
-system_interface_style: "Dark" # other val is "Light"
+system_doubleclick_on_titlebar_action: "Minimize" # other val is: "Maximize"
+system_interface_style: "Dark" # other val is: "Light"
 system_enable_full_keyboard_access: yes
 system_enable_subpixel_font_rendering: yes
 system_show_all_file_extensions: yes
 system_enable_focus_ring: no
-system_key_repeat_rate: 10
-system_initial_key_repeat_delay: 100
+system_key_repeat_rate: 2
+system_initial_key_repeat_delay: 22
 system_enable_press_and_hold: no
 system_enable_crash_reporter: no
 system_enable_startup_sound: no
@@ -41,6 +41,7 @@ safari_autofill_passwords: no
 mail_address_include_name_on_pasteboard: no
 textedit_default_doc_plaintext: yes
 
+finder_new_window_target: "PfHm" # home
 finder_show_file_extensions_warning: no
 finder_warn_before_emptying_the_trash: no
 finder_show_all_files: yes
@@ -49,7 +50,7 @@ finder_show_full_path_in_titlebar: yes
 finder_show_pathbar: yes
 finder_show_statusbar: yes
 finder_enable_quit_menu_item: yes
-finder_default_view_style: "Nlsv" # other vals: "icnv", "clmv", "Flwv"
+finder_default_view_style: "Nlsv" # other vals are: "icnv", "clmv", "Flwv"
 finder_show_external_harddrives_on_desktop: yes
 finder_show_harddrives_on_desktop: yes
 finder_show_mounted_servers_on_desktop: yes
@@ -58,6 +59,9 @@ finder_iconview_show_item_info: yes
 finder_iconview_show_label_on_bottom: no
 finder_hide_user_library: no
 finder_hide_system_volumes: no
+finder_expand_infopane_genenal: yes
+finder_expand_infopane_openwith: yes
+finder_expand_infopane_privileges: yes
 finder_iconview_arrange_by: "grid"
 finder_iconview_grid_spacing: 60
 finder_iconview_icon_size: 50

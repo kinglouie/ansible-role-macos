@@ -24,6 +24,13 @@
     value: "{{ safari_enable_status_bar|bool }}"
   notify: Restart Safari
 
+# Show favorites bar
+#defaults write com.apple.Safari ShowFavoritesBar -bool true
+#defaults write com.apple.Safari "ShowFavoritesBar-v2" -bool true
+
+# Make Safari’s search banners default to Contains instead of Starts With
+#defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
+
 - name: "Enable developer menu ({{ safari_enable_developer_menu }})"
   osx_defaults:
     domain: com.apple.Safari

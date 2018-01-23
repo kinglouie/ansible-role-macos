@@ -10,16 +10,11 @@
     duti -x {{ item.extension }}
   register: duti_result
   with_items: "{{ default_applications }}"
-  when: "'duti' in homebrew_installed_packages"
   changed_when: false
   failed_when: false
-  tags: ['duti']
 
 - name: Set default applications for file types.
   command: >
     duti -s {{ item.1.handler }} {{ item.1.extension }} {{ item.1.roles|default('all') }}
   with_indexed_items: "{{ default_applications }}"
-  when:
-    - "'duti' in homebrew_installed_packages"
   changed_when: item.1.handler not in duti_result.results[item.0].stdout
-  tags: ['duti']
