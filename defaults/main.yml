@@ -59,9 +59,14 @@ finder_iconview_show_item_info: yes
 finder_iconview_show_label_on_bottom: no
 finder_hide_user_library: no
 finder_hide_system_volumes: no
-finder_expand_infopane_genenal: yes
-finder_expand_infopane_openwith: yes
-finder_expand_infopane_privileges: yes
+finder_expand_infopane: 
+  - { name: General , value: yes }
+  - { name: MetaData , value: yes }
+  - { name: OpenWith , value: yes }
+  - { name: Name , value: yes }  
+  - { name: Comments , value: yes }
+  - { name: Preview , value: yes }
+  - { name: Privileges , value: yes }
 finder_iconview_arrange_by: "grid"
 finder_iconview_grid_spacing: 60
 finder_iconview_icon_size: 50
