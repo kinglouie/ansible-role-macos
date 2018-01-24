@@ -251,3 +251,10 @@
     - { name: "StandardViewSettings:IconViewSettings:iconSize", value: "{{ \"%.6f\" | format(finder_iconview_icon_size|float) }}" }
   notify: Restart Finder
   when: finder_iconview_icon_size_value.results[item.0].stdout != item.1.value
+
+
+   # Show Drives and Servers in Sidebar
+  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
+  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
+  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable  -bool true
+  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true

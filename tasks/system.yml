@@ -172,14 +172,15 @@
     value: "{{ system_save_new_docs_to_icloud | bool }}"
 
 - name: Get ssh service status.
-  shell: launchctl list | grep ssh
+  shell: systemsetup -getremotelogin
   register: ssh_status
   changed_when: false
+  become: yes
 
 - name: Enable ssh ({{ system_enable_ssh }}).
   command: "launchctl {{ 'load -w ' if system_enable_ssh else 'unload -w' }} /System/Library/LaunchDaemons/ssh.plist"
   become: yes
-  when: ssh_status.stdout[0] == "-" and system_enable_ssh or ssh_status.stdout[0] != "-" and not system_enable_ssh
+  when: ssh_status.stdout.find("Off") != -1 and system_enable_ssh or ssh_status.stdout.find("On") != -1 and not system_enable_ssh
 
 - name: Enable application quarantine ({{ system_enable_quarantine }}).
   osx_defaults:
