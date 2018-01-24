@@ -175,6 +175,7 @@
     - Privileges
   register: finder_expand_fileinfo_status
   changed_when: false
+  failed_when: false
 
 - name: "Expand the following File Info panes: “General”, “Open with”, and “Sharing & Permissions”."
   command: /usr/libexec/PlistBuddy -c "Set :FXInfoPanesExpanded:{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
@@ -183,7 +184,7 @@
     - { name: OpenWith, value: "{{ finder_expand_infopane_openwith | bool | string() | lower }}" }
     - { name: Privileges, value: "{{ finder_expand_infopane_privileges | bool | string() | lower }}" }
   notify: Restart Finder
-  when: finder_expand_fileinfo_status.results[item.0].stdout != item.1.value
+  when: finder_expand_fileinfo_status.results[item.0].stdout != item.1.value or finder_expand_fileinfo_status.results[item.0].strerr != ""
 
 - name: Enable QuickLook text selection ({{ finder_enable_quicklook_text_selection }}).
   osx_defaults:
