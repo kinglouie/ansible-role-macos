@@ -1,5 +1,7 @@
 ---
 
+default_applications: []
+
 system_disable_dashboard: yes
 system_enable_auto_correct: no
 system_enable_smart_quotes: no

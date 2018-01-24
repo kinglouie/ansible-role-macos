@@ -190,3 +190,6 @@
 
 #- name: Remove duplicates in the “Open With” menu.
 #  command: /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local
+
+# disable gatekeeper
+#sudo -E -- /usr/sbin/spctl --master-disable
