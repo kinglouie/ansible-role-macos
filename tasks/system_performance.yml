@@ -1,0 +1,36 @@
+---
+
+- name: Read hibernation setting.
+  shell: pmset -g | grep hibernatemode
+  register: hibernate_status
+  changed_when: false
+
+# speeds up entering sleep mode when disabled
+- name: Enable hibernation ({{ system_enable_hibernation }}).
+  become: true
+  shell: pmset -a hibernatemode {{ 3 if system_enable_hibernation else system_enable_hibernation | int }}
+  when: (hibernate_status.stdout.find("3") != -1 and not system_enable_hibernation) or
+        (hibernate_status.stdout.find("0") != -1 and system_enable_hibernation)
+
+- name: Read sudden motion sensor setting.
+  shell: pmset -g | grep sms
+  register: sms_status
+  changed_when: false
+  failed_when: false
+
+- name: Enable sudden motion sensor ({{ system_enable_sudden_motion_sensor }}).
+  become: true
+  shell: pmset -a sms "{{ system_enable_sudden_motion_sensor | int }}"
+  when: 
+    - sms_status.stdout != ""
+    - (sms_status.stdout.find("1") != -1 and not system_enable_sudden_motion_sensor) or
+      (sms_status.stdout.find("0") != -1 and system_enable_sudden_motion_sensor)
+
+- name: Disable spotlight indexing network volumes ({{ system_disable_spotlight_network_indexing }}).
+  become: true
+  osx_defaults:
+    domain: /Library/Preferences/com.apple.SpotlightServer.plist
+    key: ExternalVolumesIgnore
+    type: bool
+    value: "{{ system_disable_spotlight_network_indexing | bool }}"
+    

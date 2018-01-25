@@ -1,27 +1,28 @@
 ---
+
+- import_tasks: system_misc.yml
+  tags: [system]
+
+- import_tasks: system_screensaver.yml
+  tags: [system, screensaver]
+
+- import_tasks: system_performance.yml
+  tags: [system, performance]
+
+- import_tasks: system_hostname.yml
+  tags: [system, hostname]
+
+- import_tasks: system_default-applications.yml
+  tags: [system, default-applications]
+
 - import_tasks: finder.yml
   tags: [finder]
 
-- import_tasks: screensaver.yml
-  tags: [screensaver]
-
-- import_tasks: performance.yml
-  tags: [performance]
-
-- import_tasks: hostname.yml
-  tags: [hostname]
-
-- import_tasks: system.yml
-  tags: [system]
+- import_tasks: dock.yml
+  tags: [dock]
 
 - import_tasks: safari.yml
   tags: [safari]
-
-- import_tasks: default-applications.yml
-  tags: [default-applications]
-
-- import_tasks: dock.yml
-  tags: [dock]
 
 - import_tasks: mail.yml
   tags: [mail]

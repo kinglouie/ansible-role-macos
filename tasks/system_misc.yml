@@ -31,6 +31,18 @@
     type: bool
     value: "{{ system_enable_automatic_capitalization | bool }}"
 
+- name: Enable automatic period substitution ({{ system_enable_automatic_periods }}).
+  osx_defaults:
+    key: NSAutomaticPeriodSubstitutionEnabled
+    type: bool
+    value: "{{ system_enable_automatic_periods | bool }}"
+
+- name: Enable continuous spell checking ({{ system_enable_continuous_spell_checking }}).
+  osx_defaults:
+    key: NSAllowContinuousSpellChecking
+    type: bool
+    value: "{{ system_enable_continuous_spell_checking | bool }}"
+
 - name: Save application state on quit ({{ system_save_application_state_on_quit }}).
   osx_defaults:
     domain: com.apple.systempreferences
@@ -101,6 +113,8 @@
     type: string
     value: "{{ system_interface_style }}"
 
+# 1 : Text boxes and lists only
+# 3 : All controls
 - name: Enable full keyboard access for all controls ({{ system_enable_full_keyboard_access }}). #(e.g. enable Tab in modal dialogs)
   osx_defaults:
     state: "{{ 'present' if system_enable_full_keyboard_access else 'absent' }}"
@@ -188,6 +202,8 @@
     key: NSDocumentSaveNewDocumentsToCloud
     type: bool
     value: "{{ system_enable_quarantine | bool }}"
+
+
 
 #- name: Remove duplicates in the “Open With” menu.
 #  command: /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local
