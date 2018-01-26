@@ -227,7 +227,7 @@
   command: >
     /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }} dict"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled bool {{'true' if item in system_enable_space_hotkeys else 'false'}}"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled bool {{'true' if item.1 in system_enable_space_hotkeys else 'false'}}"
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value dict"
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters array"
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:type string \"standard\""
