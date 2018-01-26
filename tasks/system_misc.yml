@@ -45,7 +45,6 @@
 
 - name: Save application state on quit ({{ system_save_application_state_on_quit }}).
   osx_defaults:
-    domain: com.apple.systempreferences
     key: NSQuitAlwaysKeepsWindows
     type: bool
     value: "{{ system_save_application_state_on_quit | bool }}"
@@ -117,10 +116,10 @@
 # 3 : All controls
 - name: Enable full keyboard access for all controls ({{ system_enable_full_keyboard_access }}). #(e.g. enable Tab in modal dialogs)
   osx_defaults:
-    state: "{{ 'present' if system_enable_full_keyboard_access else 'absent' }}"
+    #state: "{{ 'present' if system_enable_full_keyboard_access else 'absent' }}"
     key: AppleKeyboardUIMode
     type: int
-    value: 3   
+    value: "{{ 3 if system_enable_full_keyboard_access else 1 }}"   
 
 - name: Enable subpixel font rendering on non-Apple LCDs ({{ system_enable_subpixel_font_rendering }}). # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
   osx_defaults:
@@ -203,10 +202,70 @@
     type: bool
     value: "{{ system_enable_quarantine | bool }}"
 
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
 
+- name: Set space changing hotkeys (Read settings).
+  command: /usr/libexec/PlistBuddy -c "Print :AppleSymbolicHotKeys:{{ item + 117 }}:enabled" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  with_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  register: space_changing_hotkey_status
+  failed_when: false
+  changed_when: false
+
+- name: Set space changing hotkeys (Create vars).
+  set_fact:
+    hk_tmp_item: "{{ item.stdout | bool }}"
+  with_items: "{{ space_changing_hotkey_status.results }}"
+  register: hk_tmp_items
+  no_log: true
+
+- name: Set space changing hotkeys (Create vars).
+  set_fact:
+    space_changing_hotkey_status_parsed: "{{ hk_tmp_items.results | map(attribute='ansible_facts.hk_tmp_item') | list }}"
+
+- name: Set space changing hotkeys (Create dict).
+  command: >
+    /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }} dict"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled bool {{'true' if item in system_enable_space_hotkeys else 'false'}}"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value dict"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters array"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:type string \"standard\""
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer 65535"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer {{ {1: 18, 2: 19, 3: 20, 4: 21, 5: 23, 6: 22, 7: 26, 8: 28, 9: 25}[item.1] }}"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer 262144"
+  with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  when: space_changing_hotkey_status.results[item.0].stderr != ""
+
+- name: Set space changing hotkeys (Create vars).
+  set_fact:
+    hk_tmp_item: "{{ true if item in system_enable_space_hotkeys else false }}"
+  with_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  register: hk_tmp_items2
+
+- name: Set space changing hotkeys (Create vars).
+  set_fact:
+    space_changing_hotkeys_parsed: "{{ hk_tmp_items2.results | map(attribute='ansible_facts.hk_tmp_item') | list }}"
+
+- name: Set space changing hotkeys (Update dict).
+  command: /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled {{'true' if item.1 in system_enable_space_hotkeys else 'false'}}" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  when: space_changing_hotkey_status_parsed[item.0] != space_changing_hotkeys_parsed[item.0] and space_changing_hotkey_status.results[item.0].stderr == ""
+
+- name: Get gatekeeper status.
+  command: spctl --status
+  register: gatekeeper_status
+  changed_when: false
+  failed_when: false
+  tags: test
+- name: Enable Gatekeeper ({{ system_enable_gatekeeper }}).
+  command: spctl "{{ '--master-enable' if system_enable_gatekeeper else '--master-disable' }}" 
+  become: true
+  when: (gatekeeper_status.stdout.find('enabled') != -1 and not system_enable_gatekeeper) 
+        or (gatekeeper_status.stdout.find('disabled') != -1 and system_enable_gatekeeper) 
+  tags: test
 
 #- name: Remove duplicates in the “Open With” menu.
 #  command: /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local
 
-# disable gatekeeper
-#sudo -E -- /usr/sbin/spctl --master-disable
+

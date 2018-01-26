@@ -141,6 +141,9 @@
   notify: Restart Finder
   when: system_volumes_folder_status.stdout.find("hidden") == -1 and finder_hide_system_volumes or system_volumes_folder_status.stdout.find("hidden") != -1 and not finder_hide_system_volumes
 
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
+
 - name: Get iconview show item info status.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
   with_items:
@@ -157,6 +160,9 @@
   notify: Restart Finder
   when: finder_iconview_show_item_info_status.results[item.0].stdout != item.1.value
 
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
+
 - name: Get iconview show label on bottom status.
   command: /usr/libexec/PlistBuddy -c "Print DesktopViewSettings:IconViewSettings:labelOnBottom" ~/Library/Preferences/com.apple.finder.plist
   register: finder_iconview_show_label_on_bottom_status
@@ -166,6 +172,9 @@
   command: /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom {{ finder_iconview_show_label_on_bottom|bool }}" ~/Library/Preferences/com.apple.finder.plist
   notify: Restart Finder
   when: finder_iconview_show_label_on_bottom_status.stdout == "false" and finder_iconview_show_label_on_bottom or finder_iconview_show_label_on_bottom_status.stdout == "true" and not finder_iconview_show_label_on_bottom
+
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
 
 - name: Set default expansion of file info panes (Read settings).
   command: /usr/libexec/PlistBuddy -c "Print :FXInfoPanesExpanded:{{ item.name }}" ~/Library/Preferences/com.apple.finder.plist
@@ -196,6 +205,7 @@
   notify: Restart Finder
   when: finder_expand_fileinfo_status.results[item.0].stdout != finder_expand_infopane_parsed[item.0].value and finder_expand_fileinfo_status.results[item.0].stderr == ""
 
+
 - name: Enable QuickLook text selection ({{ finder_enable_quicklook_text_selection }}).
   osx_defaults:
     domain: com.apple.finder
@@ -203,6 +213,9 @@
     type: bool
     value: "{{ finder_enable_quicklook_text_selection | bool }}"
   notify: Restart Finder
+
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
 
 - name: Get iconview arrange by status.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
@@ -220,6 +233,9 @@
   notify: Restart Finder
   when: finder_iconview_arrange_by_status.results[item.0].stdout != item.1.value
 
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
+
 - name: Get iconview grid spacing value.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
   with_items:
@@ -235,6 +251,9 @@
     - { name: "StandardViewSettings:IconViewSettings:gridSpacing", value: "{{ \"%.6f\" | format(finder_iconview_grid_spacing|float) }}" }
   notify: Restart Finder
   when: finder_iconview_grid_spacing_value.results[item.0].stdout != item.1.value
+
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
 
 - name: Get iconview icon size value.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
@@ -253,8 +272,8 @@
   when: finder_iconview_icon_size_value.results[item.0].stdout != item.1.value
 
 
-   # Show Drives and Servers in Sidebar
-  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
-  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
-  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable  -bool true
-  #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true
+# Show Drives and Servers in Sidebar
+#/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
+#/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
+#/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable  -bool true
+#/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowServers    -bool true

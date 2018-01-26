@@ -1,44 +1,60 @@
 ---
 
-system_default_applications: []
-system_disable_dashboard: yes
+## SYSTEM
+
+# ui
+system_interface_style: "Dark" # other val is: "Light"
+system_expand_save_panel_by_default: yes
+system_expand_print_panel_by_default: yes
+system_doubleclick_on_titlebar_action: "Minimize" # other val is: "Maximize"
+system_enable_subpixel_font_rendering: yes
+
+# screensaver
+system_screensaver_activation_delay: 180
+system_screensaver_ask_password: yes
+system_screensaver_ask_password_delay: 60
+
+# input
 system_enable_auto_correct: no
 system_enable_smart_quotes: no
 system_enable_smart_dashes: no
 system_enable_automatic_capitalization: no
 system_enable_automatic_periods: no
 system_enable_continuous_spell_checking: no
+system_key_repeat_rate: 2 # min = 1
+system_initial_key_repeat_delay: 22
+system_enable_full_keyboard_access: yes
+system_enable_press_and_hold: no
+
+# hostname
+system_computername: null
+system_hostname: null
+system_localhostname: null
+
+# misc
+system_show_all_file_extensions: yes
+system_enable_focus_ring: no
+system_default_applications: []
+system_disable_dashboard: yes
 system_save_application_state_on_quit: yes
-system_expand_save_panel_by_default: yes
-system_expand_print_panel_by_default: yes
-system_enable_springloading_directories: yes
 system_springloading_directories_delay: 2
 system_disable_dsstore_on_network_shares: yes
 system_disable_dsstore_on_usb_drives: yes
 system_disable_disk_image_verification: yes
-system_doubleclick_on_titlebar_action: "Minimize" # other val is: "Maximize"
-system_interface_style: "Dark" # other val is: "Light"
-system_enable_full_keyboard_access: yes
-system_enable_subpixel_font_rendering: yes
-system_show_all_file_extensions: yes
-system_enable_focus_ring: no
-system_key_repeat_rate: 2
-system_initial_key_repeat_delay: 22
-system_enable_press_and_hold: no
-system_enable_crash_reporter: no
-system_enable_startup_sound: no
+system_disable_spotlight_network_indexing: yes
 system_save_new_docs_to_icloud: no
 system_enable_ssh: yes
-system_enable_quarantine: no
-system_computername: null
-system_hostname: null
-system_localhostname: null
-system_screensaver_activation_delay: 180
-system_screensaver_ask_password: yes
-system_screensaver_ask_password_delay: 60
-system_disable_spotlight_network_indexing: yes
+system_enable_crash_reporter: no
+system_enable_startup_sound: no
+system_enable_springloading_directories: yes
 system_enable_sudden_motion_sensor: yes
 system_enable_hibernation: yes
+system_enable_gatekeeper: no
+system_enable_quarantine: no
+system_enable_space_hotkeys: [1, 2, 3, 4, 5, 6]
+
+
+## FINDER
 
 finder_new_window_target: "PfHm" # home
 finder_show_file_extensions_warning: no
@@ -71,6 +87,9 @@ finder_iconview_grid_spacing: 60
 finder_iconview_icon_size: 50
 finder_enable_quicklook_text_selection: yes
 
+
+## DOCK
+
 dock_tile_size: 50
 dock_show_idicator_lights: yes
 dock_hidden_items_translucent: yes
@@ -82,15 +101,27 @@ dock_apps_remove_undefined: yes
 dock_apps: []
 dock_spacers: []
 
+
+## SAFARI
+
 safari_show_full_url_in_address_bar: yes
 safari_open_safe_files_automatically: no
 safari_enable_status_bar: yes
 safari_enable_developer_menu: yes
 safari_autofill_passwords: no
 
+
+## MAIL
+
 mail_address_include_name_on_pasteboard: no
 
+
+## TEXTEDIT
+
 textedit_default_doc_plaintext: yes
+
+
+## TERMINAL
 
 terminal_enable_secure_keyboard_entry: no
 
