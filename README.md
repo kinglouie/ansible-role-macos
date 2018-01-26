@@ -1,37 +1,65 @@
-#Ansible Role: MacOS
+# Ansible Role: macOS
+
 [![Build Status][travis-badge]][travis-link]
 [![MIT licensed][mit-badge]][mit-link]
 [![Galaxy Role][role-badge]][galaxy-link]
 
-Configures MacOS by mostly using the defaults module
+Configures macOS and default apple applications by mostly using the defaults module.
 
-Requirements
-------------
+## Requirements
 
-homebrew
+- **Homebrew**: Requires homebrew already installed (you can use geerlingguy.homebrew to install it on your Mac).
 
-Role Variables
---------------
+## Role Variables
 
-See defaults/main.yml
+Most vars are self explanatory just check out defaults at defaults/main.yml
 
-Dependencies
-------------
 
-none
 
-Example Playbook
-----------------
+##### default applications
+You can set default filetype associations like this:
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+	system_default_applications:
+	  - { extension: avi, handler: com.colliderli.iina }
+	  - { extension: md, handler: com.uranusjr.macdown }
+	  - { extension: cfg, handler: com.sublimetext.3 }
+
+##### dock apps
+
+	dock_apps:
+	  - name: Safari
+	    path: /Applications/Safari.app
+	  - name: iTunes
+	    path: /Applications/iTunes.app
+	  - name: Mail
+	    path: /Applications/Mail.app   
+	  - name: iTerm
+	    path: /Applications/iTerm.app
+	  - name: Tower
+	    path: /Applications/Tower.app
+	  - name: Sublime Text
+	    path: /Applications/Sublime Text.app
+	dock_spacers:
+	  - after: iTunes
+	  - after: Mail
+
+
+## Dependencies
+
+- (Soft dependency) geerlingguy.homebrew
+
+## Example Playbook
 
     - hosts: servers
       roles:
-         - { role: KingLoui.macos }
+         - geerlingguy.homebrew
+         - kinglouie.macos
 
-[galaxy-link]: https://galaxy.ansible.com/KingLoui/macos/
+
+
+[galaxy-link]: https://galaxy.ansible.com/kinglouie/macos/
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[mit-link]: https://raw.githubusercontent.com/kingloui/ansible-role-macos/master/LICENSE
-[role-badge]: https://img.shields.io/badge/role-KingLoui.macos-blue.svg
-[travis-badge]: https://travis-ci.org/KingLoui/ansible-role-macos.svg?branch=master
-[travis-link]: https://travis-ci.org/KingLoui/ansible-role-macos
+[mit-link]: https://raw.githubusercontent.com/kinglouie/ansible-role-macos/master/LICENSE
+[role-badge]: https://img.shields.io/badge/role-kinglouie.macos-blue.svg
+[travis-badge]: https://travis-ci.org/kinglouie/ansible-role-macos.svg?branch=master
+[travis-link]: https://travis-ci.org/kinglouie/ansible-role-macos
