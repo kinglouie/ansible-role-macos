@@ -15,6 +15,7 @@
     - defaults -currentHost write com.apple.screensaver CleanExit -string YES
     - defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName -string "Flurry" displayName -string "Flurry" path -string "/System/Library/Screen Savers/Flurry.saver" type -int 0
   when: idletime_type.stdout.find('string') != -1
+  no_log: true
 
 - name: Screensaver - Set activation delay for screensaver ({{ system.screensaver.activation_delay }}).
   osx_defaults:
