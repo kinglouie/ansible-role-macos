@@ -112,6 +112,9 @@ safari_defaults:
   enable_status_bar: no
   enable_developer_menu: no
   autofill_passwords: yes
+  show_favorites_bar: no
+  disable_thumbnail_cache: no
+  search_with_word_start_only: yes
 
 
 ## MAIL

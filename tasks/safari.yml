@@ -1,48 +1,69 @@
 ---
 
-- name: Safari - "Show full URL in the address bar ({{ safari.show_full_url_in_address_bar }})"
+- name: Safari - Show full URL in the address bar ({{ safari.show_full_url_in_address_bar }}).
   osx_defaults:
     domain: com.apple.Safari
     key: ShowFullURLInSmartSearchField
     type: bool
-    value: "{{ safari.show_full_url_in_address_bar|bool }}"
+    value: "{{ safari.show_full_url_in_address_bar | bool }}"
   notify: Restart Safari
 
-- name: Safari - "Open 'safe' files automatically ({{ safari.open_safe_files_automatically }})"
+- name: Safari - Open 'safe' files automatically ({{ safari.open_safe_files_automatically }}).
   osx_defaults:
     domain: com.apple.Safari
     key: AutoOpenSafeDownloads
     type: bool
-    value: "{{ safari.open_safe_files_automatically|bool }}"
+    value: "{{ safari.open_safe_files_automatically | bool }}"
   notify: Restart Safari
 
-- name: Safari - "Enable status bar ({{ safari.enable_status_bar }})"
+- name: Safari - Enable status bar ({{ safari.enable_status_bar }}).
   osx_defaults:
     domain: com.apple.Safari
     key: ShowOverlayStatusBar
     type: bool
-    value: "{{ safari.enable_status_bar|bool }}"
+    value: "{{ safari.enable_status_bar | bool }}"
   notify: Restart Safari
 
-# Show favorites bar
-#defaults write com.apple.Safari ShowFavoritesBar -bool true
-#defaults write com.apple.Safari "ShowFavoritesBar-v2" -bool true
-
-# Make Safari’s search banners default to Contains instead of Starts With
-#defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
-
-- name: Safari - "Enable developer menu ({{ safari.enable_developer_menu }})"
+- name: Safari - Enable developer menu ({{ safari.enable_developer_menu }}).
   osx_defaults:
     domain: com.apple.Safari
     key: IncludeDevelopMenu
     type: bool
-    value: "{{ safari.enable_developer_menu|bool }}"
+    value: "{{ safari.enable_developer_menu | bool }}"
   notify: Restart Safari
 
-- name: Safari - "Safari autofill passwords ({{ safari.autofill_passwords }})"
+- name: Safari - Autofill passwords ({{ safari.autofill_passwords }}).
   osx_defaults:
     domain: com.apple.Safari
     key: AutoFillPasswords
     type: bool
-    value: "{{ safari.autofill_passwords|bool }}"
+    value: "{{ safari.autofill_passwords | bool }}"
+  notify: Restart Safari
+
+- name: Safari - Show favorites bar ({{ safari.show_favorites_bar }}).
+  osx_defaults:
+    domain: com.apple.Safari
+    key: "{{ item }}"
+    type: bool
+    value: "{{ safari.show_favorites_bar | bool }}"
+  with_items:
+    - ShowFavoritesBar
+    - ShowFavoritesBar-v2
+  notify: Restart Safari
+
+- name: Safari - Disable thumbnail cache for history and top sites ({{ safari.disable_thumbnail_cache }}).
+  osx_defaults:
+    domain: com.apple.Safari
+    state: "{{ 'present' if safari.disable_thumbnail_cache else 'absent' }}"
+    key: DebugSnapshotsUpdatePolicy
+    type: int
+    value: 2
+  notify: Restart Safari
+
+- name: Safari - Search only with word start only ({{ safari.search_with_word_start_only }}).
+  osx_defaults:
+    domain: com.apple.Safari
+    key: FindOnPageMatchesWordStartsOnly
+    type: bool
+    value: "{{ safari.search_with_word_start_only | bool }}"
   notify: Restart Safari
