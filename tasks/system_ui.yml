@@ -63,3 +63,27 @@
     key: NSUseAnimatedFocusRing
     type: bool
     value: "{{ system.ui.enable_focus_ring | bool }}"
+
+- name: UI - Enable menubar transparency ({{ system.ui.enable_menubar_transparency }}).
+  osx_defaults:
+    key: AppleEnableMenuBarTransparency
+    type: bool
+    value: "{{ system.ui.enable_menubar_transparency | bool }}"
+
+- name: UI - Show scrollbars ({{ system.ui.show_scrollbars }}).
+  osx_defaults:
+    key: AppleShowScrollBars
+    type: string
+    value: "{{ system.ui.show_scrollbars }}"
+
+- name: UI - Enable opening and closing window animations ({{ system.ui.enable_opening_closing_window_animations }}).
+  osx_defaults:
+    key: NSAutomaticWindowAnimationsEnabled
+    type: bool
+    value: "{{ system.ui.enable_opening_closing_window_animations | bool }}"
+
+- name: UI - Set window resize speed for Cocoa applications ({{ system.ui.window_resize_speed }}).
+  osx_defaults:
+    key: NSWindowResizeTime
+    type: float
+    value: "{{ system.ui.window_resize_speed | float }}"

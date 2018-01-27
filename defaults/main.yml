@@ -13,6 +13,10 @@ system_defaults:
     disable_dashboard: yes
     enable_springloading_directories: yes
     springloading_directories_delay: 2
+    window_resize_speed: 0.2
+    enable_opening_closing_window_animations: yes
+    show_scrollbars: "WhenScrolling" # other val is: "Always"
+    enable_menubar_transparency: yes
   screensaver:
     activation_delay: 0
     ask_password: no
