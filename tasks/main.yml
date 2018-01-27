@@ -1,19 +1,41 @@
 ---
 
+- name: Merge defaults with user variables.
+  set_fact:
+    system: "{{ system_defaults | combine(system, recursive=True) }}"
+    finder: "{{ finder_defaults | combine(finder, recursive=True) }}"
+    dock: "{{ dock_defaults | combine(dock, recursive=True) }}"
+    safari: "{{ safari_defaults | combine(safari, recursive=True) }}"
+    mail: "{{ mail_defaults | combine(mail, recursive=True) }}"
+    textedit: "{{ textedit_defaults | combine(textedit, recursive=True) }}"
+    terminal: "{{ terminal_defaults | combine(terminal, recursive=True) }}"
+  tags: always
+
+- import_tasks: system_input.yml
+  tags: [system]
+
+- import_tasks: system_ui.yml
+  tags: [system]
+
+- import_tasks: system_security.yml
+  tags: [system]
+
 - import_tasks: system_misc.yml
   tags: [system]
 
 - import_tasks: system_screensaver.yml
   tags: [system, screensaver]
 
-- import_tasks: system_performance.yml
-  tags: [system, performance]
-
 - import_tasks: system_hostname.yml
   tags: [system, hostname]
 
 - import_tasks: system_default-applications.yml
   tags: [system, default-applications]
+
+
+
+
+
 
 - import_tasks: finder.yml
   tags: [finder]

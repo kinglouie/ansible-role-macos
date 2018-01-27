@@ -1,0 +1,65 @@
+---
+
+- name: UI - Expand save panel by default ({{ system.ui.expand_save_panel_by_default }}).
+  osx_defaults:
+    key: NSNavPanelExpandedStateForSaveMode
+    type: bool
+    value: "{{ system.ui.expand_save_panel_by_default | bool }}"
+  notify: Restart Finder
+
+- name: UI - Expand print panel by default ({{ system.ui.expand_print_panel_by_default }}).
+  osx_defaults:
+    key: PMPrintingExpandedStateForPrint
+    type: bool
+    value: "{{ system.ui.expand_print_panel_by_default | bool }}"
+  notify: Restart Finder
+
+- name: UI - Enable spring loading for directories ({{ system.ui.enable_springloading_directories }}).
+  osx_defaults:
+    key: com.apple.springing.enabled
+    type: bool
+    value: "{{ system.ui.enable_springloading_directories | bool }}"
+
+- name: UI - Set delay for spring loading directories ({{ system.ui.springloading_directories_delay }}).
+  osx_defaults:
+    key: com.apple.springing.delay
+    type: float
+    value: "{{ system.ui.springloading_directories_delay }}"
+
+- name: UI - Set action for double click on titlebar ({{ system.ui.doubleclick_on_titlebar_action }}).
+  osx_defaults:
+    key: AppleActionOnDoubleClick
+    type: string
+    value: "{{ system.ui.doubleclick_on_titlebar_action }}"
+
+- name: UI - Set interface style ({{ system.ui.interface_style }}).
+  osx_defaults:
+    key: AppleInterfaceStyle
+    type: string
+    value: "{{ system.ui.interface_style }}"
+
+- name: UI - Enable subpixel font rendering on non-Apple LCDs ({{ system.ui.enable_subpixel_font_rendering }}). # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+  osx_defaults:
+    state: "{{ 'present' if system.ui.enable_subpixel_font_rendering else 'absent' }}"
+    key: AppleFontSmoothing
+    type: int
+    value: 1 
+
+- name: UI - Disable Dashboard ({{ system.ui.disable_dashboard }}).
+  osx_defaults:
+    domain: com.apple.dashboard
+    key: mcx-disabled
+    type: bool
+    value: "{{ system.ui.disable_dashboard | bool }}"
+
+- name: UI - Show all file extensions ({{ system.ui.show_all_file_extensions }}).
+  osx_defaults:
+    key: AppleShowAllExtensions
+    type: bool
+    value: "{{ system.ui.show_all_file_extensions | bool }}"
+
+- name: UI - Enable focus ring ({{ system.ui.enable_focus_ring }}).
+  osx_defaults:
+    key: NSUseAnimatedFocusRing
+    type: bool
+    value: "{{ system.ui.enable_focus_ring | bool }}"

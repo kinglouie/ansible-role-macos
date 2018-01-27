@@ -1,10 +1,10 @@
 ---
 
 # See: https://security.stackexchange.com/a/47786/8918
-- name: Enable secure keyboard entry ({{ terminal_enable_secure_keyboard_entry }}).
+- name: Terminal - Enable secure keyboard entry ({{ terminal.enable_secure_keyboard_entry }}).
   osx_defaults:
     domain: com.apple.terminal
     key: SecureKeyboardEntry
     type: bool
-    value: "{{ terminal_enable_secure_keyboard_entry }}"
+    value: "{{ terminal.enable_secure_keyboard_entry }}"
   notify: Restart Terminal

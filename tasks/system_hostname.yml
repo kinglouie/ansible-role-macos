@@ -1,39 +1,39 @@
 ---
 
-- name: Get current ComputerName
+- name: Hostname - Get current ComputerName
   shell: scutil --get ComputerName
   register: computername_result
   changed_when: false
   check_mode: no
-  when: system_computername != None
+  when: system.hostname.computername != None
 
-- name: Update ComputerName
+- name: Hostname - Update ComputerName
   shell: scutil --set ComputerName {{ hostname_computername }}
   become: true
-  when: system_computername != None and (system_computername not in computername_result.stdout)
+  when: system.hostname.computername != None and (system.hostname.computername not in computername_result.stdout)
 
-- name: Get current HostName
+- name: Hostname - Get current HostName
   shell: scutil --get HostName
   register: hostname_result
   changed_when: false
   failed_when: false
   check_mode: no
-  when: system_hostname != None
+  when: system.hostname.hostname != None
 
-- name: Update HostName
-  shell: scutil --set HostName {{ system_hostname }}
+- name: Hostname - Update HostName
+  shell: scutil --set HostName {{ system.hostname.hostname }}
   become: true
-  when: system_hostname != None and (hostname_result.failed or (system_hostname not in hostname_result.stdout))
+  when: system.hostname.hostname != None and (hostname_result.failed or (system.hostname.hostname not in hostname_result.stdout))
 
-- name: Get current LocalHostName
+- name: Hostname - Get current LocalHostName
   shell: scutil --get LocalHostName
   register: localhostname_result
   changed_when: false
   check_mode: no
-  when: system_localhostname != None
+  when: system.hostname.localhostname != None
 
-- name: Update LocalHostName
-  shell: scutil --set LocalHostName {{ system_localhostname }}
+- name: Hostname - Update LocalHostName
+  shell: scutil --set LocalHostName {{ system.hostname.localhostname }}
   become: true
-  when: system_localhostname != None and (system_localhostname not in localhostname_result.stdout)
+  when: system.hostname.localhostname != None and (system.hostname.localhostname not in localhostname_result.stdout)
 

@@ -1,23 +1,23 @@
 ---
 
-- name: Set activation delay for screensaver ({{ system_screensaver_activation_delay }}).
+- name: Screensaver - Set activation delay for screensaver ({{ system.screensaver.activation_delay }}).
   osx_defaults:
     domain: com.apple.screensaver
     host: currentHost
     key: idleTime
     type: int
-    value: "{{ system_screensaver_activation_delay }}"
+    value: "{{ system.screensaver.activation_delay }}"
 
-- name: Ask for a password when leaving the screensaver ({{ system_screensaver_ask_password }}).
+- name: Screensaver - Ask for a password when leaving the screensaver ({{ system.screensaver.ask_password }}).
   osx_defaults:
     domain: com.apple.screensaver
     key: askForPassword
     type: int
-    value: "{{ system_screensaver_ask_password | int }}"
+    value: "{{ system.screensaver.ask_password | int }}"
 
-- name: Set ask password delay ({{ system_screensaver_ask_password_delay }}).
+- name: Screensaver - Set ask password delay ({{ system.screensaver.ask_password_delay }}).
   osx_defaults:
     domain: com.apple.screensaver
     key: askForPasswordDelay
     type: float
-    value: "{{ system_screensaver_ask_password_delay | float }}"
+    value: "{{ system.screensaver.ask_password_delay | float }}"

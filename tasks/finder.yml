@@ -1,70 +1,70 @@
 ---
 
-- name: Set new window target ({{ finder_new_window_target }}).
+- name: Finder - Set new window target ({{ finder.new_window_target }}).
   osx_defaults:
     domain: com.apple.finder
     key: NewWindowTarget
     type: string
-    value: "{{ finder_new_window_target }}"
+    value: "{{ finder.new_window_target }}"
   notify: Restart Finder
 
-- name: Show extension warning ({{ finder_show_file_extensions_warning }}).
+- name: Finder - Show extension warning ({{ finder.show_file_extensions_warning }}).
   osx_defaults:
     domain: com.apple.finder
     key: FXEnableExtensionChangeWarning
     type: bool
-    value: "{{ finder_show_file_extensions_warning|bool }}"
+    value: "{{ finder.show_file_extensions_warning|bool }}"
   notify: Restart Finder
 
-- name: Warn before emptying the trash ({{ finder_warn_before_emptying_the_trash }}).
+- name: Finder - Warn before emptying the trash ({{ finder.warn_before_emptying_the_trash }}).
   osx_defaults:
     domain: com.apple.finder
     key: WarnOnEmptyTrash
     type: bool
-    value: "{{ finder_warn_before_emptying_the_trash|bool }}"
+    value: "{{ finder.warn_before_emptying_the_trash|bool }}"
   notify: Restart Finder
 
-- name: Show All Files ({{ finder_show_all_files }})
+- name: Finder - Show All Files ({{ finder.show_all_files }})
   osx_defaults:
     domain: com.apple.finder
     key: AppleShowAllFiles
     type: bool
-    value: "{{ finder_show_all_files|bool }}"
+    value: "{{ finder.show_all_files|bool }}"
   notify: Restart Finder
 
-- name: Keep folders on top when sorting by name ({{ finder_keep_folders_on_top }}).
+- name: Finder - Keep folders on top when sorting by name ({{ finder.keep_folders_on_top }}).
   osx_defaults:
     domain: com.apple.finder
     key: _FXSortFoldersFirst
     type: bool
-    value: "{{ finder_keep_folders_on_top|bool }}"
+    value: "{{ finder.keep_folders_on_top|bool }}"
   notify: Restart Finder
 
-- name: Show full path in finder titlebar ({{ finder_show_full_path_in_titlebar }}).
+- name: Finder - Show full path in finder titlebar ({{ finder.show_full_path_in_titlebar }}).
   osx_defaults:
     domain: com.apple.finder
     key: _FXShowPosixPathInTitle
     type: bool
-    value: "{{ finder_show_full_path_in_titlebar|bool }}"
+    value: "{{ finder.show_full_path_in_titlebar|bool }}"
   notify: Restart Finder
 
-- name: Show pathbar in bottom of finder ({{ finder_show_pathbar }}).
+- name: Finder - Show pathbar in bottom of finder ({{ finder.show_pathbar }}).
   osx_defaults:
     domain: com.apple.finder
     key: ShowPathbar
     type: bool
-    value: "{{ finder_show_pathbar|bool }}"
+    value: "{{ finder.show_pathbar|bool }}"
   notify: Restart Finder
 
-- name: Show statusbar ({{ finder_show_statusbar }}).
+- name: Finder - Show statusbar ({{ finder.show_statusbar }}).
   osx_defaults:
     domain: com.apple.finder
     key: ShowStatusBar
     type: bool
-    value: "{{ finder_show_statusbar|bool }}"
+    value: "{{ finder.show_statusbar|bool }}"
   notify: Restart Finder
 
-- name: When performing a search, search the current folder by default.
+- name: Finder - When performing a search, search the current folder by default.
   osx_defaults:
     domain: com.apple.finder
     key: FXDefaultSearchScope
@@ -72,79 +72,79 @@
     value: "SCcf"
   notify: Restart Finder
 
-- name: Enable quit menu item ({{ finder_enable_quit_menu_item }}).
+- name: Finder - Enable quit menu item ({{ finder.enable_quit_menu_item }}).
   osx_defaults:
     domain: com.apple.finder
     key: QuitMenuItem
     type: bool
-    value: "{{ finder_enable_quit_menu_item|bool }}"
+    value: "{{ finder.enable_quit_menu_item|bool }}"
   notify: Restart Finder
 
-- name: Default view style ({{ finder_default_view_style }}).
+- name: Finder - Default view style ({{ finder.default_view_style }}).
   osx_defaults:
     domain: com.apple.finder
     key: FXPreferredViewStyle
     type: string
-    value: "{{ finder_default_view_style }}"
+    value: "{{ finder.default_view_style }}"
   notify: Restart Finder
 
-- name: Show external harddrives on desktop ({{ finder_show_external_harddrives_on_desktop }}).
+- name: Finder - Show external harddrives on desktop ({{ finder.show_external_harddrives_on_desktop }}).
   osx_defaults:
     domain: com.apple.finder
     key: ShowExternalHardDrivesOnDesktop
     type: bool
-    value: "{{ finder_show_external_harddrives_on_desktop|bool }}"
+    value: "{{ finder.show_external_harddrives_on_desktop|bool }}"
   notify: Restart Finder
 
-- name: Show harddrives on desktop ({{ finder_show_harddrives_on_desktop }}).
+- name: Finder - Show harddrives on desktop ({{ finder.show_harddrives_on_desktop }}).
   osx_defaults:
     domain: com.apple.finder
     key: ShowHardDrivesOnDesktop
     type: bool
-    value: "{{ finder_show_harddrives_on_desktop|bool }}"
+    value: "{{ finder.show_harddrives_on_desktop|bool }}"
   notify: Restart Finder
 
-- name: Show mounted servers on desktop ({{ finder_show_mounted_servers_on_desktop }}).
+- name: Finder - Show mounted servers on desktop ({{ finder.show_mounted_servers_on_desktop }}).
   osx_defaults:
     domain: com.apple.finder
     key: ShowMountedServersOnDesktop
     type: bool
-    value: "{{ finder_show_mounted_servers_on_desktop|bool }}"
+    value: "{{ finder.show_mounted_servers_on_desktop|bool }}"
   notify: Restart Finder
 
-- name: Show removable media on desktop ({{ finder_show_removable_media_on_desktop }}).
+- name: Finder - Show removable media on desktop ({{ finder.show_removable_media_on_desktop }}).
   osx_defaults:
     domain: com.apple.finder
     key: ShowRemovableMediaOnDesktop
     type: bool
-    value: "{{ finder_show_removable_media_on_desktop|bool }}"
+    value: "{{ finder.show_removable_media_on_desktop|bool }}"
   notify: Restart Finder
 
-- name: Get user library folder status.
+- name: Finder - Get user library folder status.
   shell: ls -aOl ~/Library/ | sed -n 2p
   register: user_library_folder_status
   changed_when: false
 
-- name: Hide user library folder ({{ finder_hide_user_library }}). 
-  command: "chflags {{ 'hidden' if finder_hide_user_library else 'nohidden' }} ~/Library/"
+- name: Finder - Hide user library folder ({{ finder.hide_user_library }}). 
+  command: "chflags {{ 'hidden' if finder.hide_user_library else 'nohidden' }} ~/Library/"
   notify: Restart Finder
-  when: user_library_folder_status.stdout.find("hidden") == -1 and finder_hide_user_library or user_library_folder_status.stdout.find("hidden") != -1 and not finder_hide_user_library
+  when: user_library_folder_status.stdout.find("hidden") == -1 and finder.hide_user_library or user_library_folder_status.stdout.find("hidden") != -1 and not finder.hide_user_library
 
-- name: Get system volumes folder status.
+- name: Finder - Get system volumes folder status.
   shell: ls -aOl /Volumes | sed -n 2p
   register: system_volumes_folder_status
   changed_when: false
 
-- name: Hide system volumes folder ({{ finder_hide_system_volumes }}).
-  command: "chflags {{ 'hidden' if finder_hide_system_volumes else 'nohidden' }} /Volumes"
+- name: Finder - Hide system volumes folder ({{ finder.hide_system_volumes }}).
+  command: "chflags {{ 'hidden' if finder.hide_system_volumes else 'nohidden' }} /Volumes"
   become: true
   notify: Restart Finder
-  when: system_volumes_folder_status.stdout.find("hidden") == -1 and finder_hide_system_volumes or system_volumes_folder_status.stdout.find("hidden") != -1 and not finder_hide_system_volumes
+  when: system_volumes_folder_status.stdout.find("hidden") == -1 and finder.hide_system_volumes or system_volumes_folder_status.stdout.find("hidden") != -1 and not finder.hide_system_volumes
 
 # @TODO 
 # Replace this shit as soon as ansible supports osx_defaults with dicts
 
-- name: Get iconview show item info status.
+- name: Finder - Get iconview show item info status.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
   with_items:
     - "DesktopViewSettings:IconViewSettings:showItemInfo"
@@ -152,72 +152,72 @@
   register: finder_iconview_show_item_info_status
   changed_when: false
 
-- name: Show item info near icons on the desktop and in other icon views ({{ finder_iconview_show_item_info }}).
+- name: Finder - Show item info near icons on the desktop and in other icon views ({{ finder.iconview_show_item_info }}).
   command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
   with_indexed_items:
-    - { name: "DesktopViewSettings:IconViewSettings:showItemInfo", value: "{{ finder_iconview_show_item_info | bool | string() | lower }}" }
-    - { name: "StandardViewSettings:IconViewSettings:showItemInfo", value: "{{ finder_iconview_show_item_info | bool | string() | lower }}" }
+    - { name: "DesktopViewSettings:IconViewSettings:showItemInfo", value: "{{ finder.iconview_show_item_info | bool | string() | lower }}" }
+    - { name: "StandardViewSettings:IconViewSettings:showItemInfo", value: "{{ finder.iconview_show_item_info | bool | string() | lower }}" }
   notify: Restart Finder
   when: finder_iconview_show_item_info_status.results[item.0].stdout != item.1.value
 
 # @TODO 
 # Replace this shit as soon as ansible supports osx_defaults with dicts
 
-- name: Get iconview show label on bottom status.
+- name: Finder - Get iconview show label on bottom status.
   command: /usr/libexec/PlistBuddy -c "Print DesktopViewSettings:IconViewSettings:labelOnBottom" ~/Library/Preferences/com.apple.finder.plist
   register: finder_iconview_show_label_on_bottom_status
   changed_when: false
 
-- name: Show item info label on the bottom of the icons on the desktop ({{ finder_iconview_show_label_on_bottom }}).
-  command: /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom {{ finder_iconview_show_label_on_bottom|bool }}" ~/Library/Preferences/com.apple.finder.plist
+- name: Finder - Show item info label on the bottom of the icons on the desktop ({{ finder.iconview_show_label_on_bottom }}).
+  command: /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom {{ finder.iconview_show_label_on_bottom|bool }}" ~/Library/Preferences/com.apple.finder.plist
   notify: Restart Finder
-  when: finder_iconview_show_label_on_bottom_status.stdout == "false" and finder_iconview_show_label_on_bottom or finder_iconview_show_label_on_bottom_status.stdout == "true" and not finder_iconview_show_label_on_bottom
+  when: finder_iconview_show_label_on_bottom_status.stdout == "false" and finder.iconview_show_label_on_bottom or finder_iconview_show_label_on_bottom_status.stdout == "true" and not finder.iconview_show_label_on_bottom
 
 # @TODO 
 # Replace this shit as soon as ansible supports osx_defaults with dicts
 
-- name: Set default expansion of file info panes (Read settings).
+- name: Finder - Set default expansion of file info panes (Read settings).
   command: /usr/libexec/PlistBuddy -c "Print :FXInfoPanesExpanded:{{ item.name }}" ~/Library/Preferences/com.apple.finder.plist
-  with_items: "{{ finder_expand_infopane }}"
+  with_items: "{{ finder.expand_infopane }}"
   register: finder_expand_fileinfo_status
   changed_when: false
   failed_when: false
 
-- name: Set default expansion of file info panes (Create settings).
+- name: Finder - Set default expansion of file info panes (Create settings).
   command: defaults write com.apple.finder FXInfoPanesExpanded -dict-add {{ item.1.name }} -bool {{ item.1.value }}
-  with_indexed_items: "{{ finder_expand_infopane }}"
+  with_indexed_items: "{{ finder.expand_infopane }}"
   when: finder_expand_fileinfo_status.results[item.0].stderr != ""
 
-- name: Set default expansion of file info panes (Create vars).
+- name: Finder - Set default expansion of file info panes (Create vars).
   set_fact:
     tmp_item:
       name: "{{ item.name }}"
       value: "{{ item.value | bool | string() | lower }}"
   register: tmp_items
-  with_items: "{{ finder_expand_infopane }}"
-- name: Set default expansion of file info panes (Create vars).
+  with_items: "{{ finder.expand_infopane }}"
+- name: Finder - Set default expansion of file info panes (Create vars).
   set_fact:
     finder_expand_infopane_parsed: "{{ tmp_items.results | map(attribute='ansible_facts.tmp_item') | list }}"
 
-- name: Set default expansion of file info panes (Update settings).
+- name: Finder - Set default expansion of file info panes (Update settings).
   command: /usr/libexec/PlistBuddy -c "Set :FXInfoPanesExpanded:{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
-  with_indexed_items: "{{ finder_expand_infopane }}"
+  with_indexed_items: "{{ finder.expand_infopane }}"
   notify: Restart Finder
   when: finder_expand_fileinfo_status.results[item.0].stdout != finder_expand_infopane_parsed[item.0].value and finder_expand_fileinfo_status.results[item.0].stderr == ""
 
 
-- name: Enable QuickLook text selection ({{ finder_enable_quicklook_text_selection }}).
+- name: Finder - Enable QuickLook text selection ({{ finder.enable_quicklook_text_selection }}).
   osx_defaults:
     domain: com.apple.finder
     key: QLEnableTextSelection
     type: bool
-    value: "{{ finder_enable_quicklook_text_selection | bool }}"
+    value: "{{ finder.enable_quicklook_text_selection | bool }}"
   notify: Restart Finder
 
 # @TODO 
 # Replace this shit as soon as ansible supports osx_defaults with dicts
 
-- name: Get iconview arrange by status.
+- name: Finder - Get iconview arrange by status.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
   with_items:
     - "DesktopViewSettings:IconViewSettings:arrangeBy"
@@ -225,18 +225,18 @@
   register: finder_iconview_arrange_by_status
   changed_when: false
 
-- name: Set arrange by for icons on the desktop and in other icon views ({{ finder_iconview_arrange_by }}).
+- name: Finder - Set arrange by for icons on the desktop and in other icon views ({{ finder.iconview_arrange_by }}).
   command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
   with_indexed_items:
-    - { name: "DesktopViewSettings:IconViewSettings:arrangeBy", value: "{{ finder_iconview_arrange_by }}" }
-    - { name: "StandardViewSettings:IconViewSettings:arrangeBy", value: "{{ finder_iconview_arrange_by }}" }
+    - { name: "DesktopViewSettings:IconViewSettings:arrangeBy", value: "{{ finder.iconview_arrange_by }}" }
+    - { name: "StandardViewSettings:IconViewSettings:arrangeBy", value: "{{ finder.iconview_arrange_by }}" }
   notify: Restart Finder
   when: finder_iconview_arrange_by_status.results[item.0].stdout != item.1.value
 
 # @TODO 
 # Replace this shit as soon as ansible supports osx_defaults with dicts
 
-- name: Get iconview grid spacing value.
+- name: Finder - Get iconview grid spacing value.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
   with_items:
     - "DesktopViewSettings:IconViewSettings:gridSpacing"
@@ -244,18 +244,18 @@
   register: finder_iconview_grid_spacing_value
   changed_when: false
 
-- name: Set grid spacing for icons on the desktop and in other icon views ({{ finder_iconview_grid_spacing }}).
+- name: Finder - Set grid spacing for icons on the desktop and in other icon views ({{ finder.iconview_grid_spacing }}).
   command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
   with_indexed_items:
-    - { name: "DesktopViewSettings:IconViewSettings:gridSpacing", value: "{{ \"%.6f\" | format(finder_iconview_grid_spacing|float) }}" }
-    - { name: "StandardViewSettings:IconViewSettings:gridSpacing", value: "{{ \"%.6f\" | format(finder_iconview_grid_spacing|float) }}" }
+    - { name: "DesktopViewSettings:IconViewSettings:gridSpacing", value: "{{ \"%.6f\" | format(finder.iconview_grid_spacing|float) }}" }
+    - { name: "StandardViewSettings:IconViewSettings:gridSpacing", value: "{{ \"%.6f\" | format(finder.iconview_grid_spacing|float) }}" }
   notify: Restart Finder
   when: finder_iconview_grid_spacing_value.results[item.0].stdout != item.1.value
 
 # @TODO 
 # Replace this shit as soon as ansible supports osx_defaults with dicts
 
-- name: Get iconview icon size value.
+- name: Finder - Get iconview icon size value.
   command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
   with_items:
     - "DesktopViewSettings:IconViewSettings:iconSize"
@@ -263,11 +263,11 @@
   register: finder_iconview_icon_size_value
   changed_when: false
 
-- name: Set size of icons on the desktop and in other icon views ({{ finder_iconview_icon_size }}).
+- name: Finder - Set size of icons on the desktop and in other icon views ({{ finder.iconview_icon_size }}).
   command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
   with_indexed_items:
-    - { name: "DesktopViewSettings:IconViewSettings:iconSize", value: "{{ \"%.6f\" | format(finder_iconview_icon_size|float) }}" }
-    - { name: "StandardViewSettings:IconViewSettings:iconSize", value: "{{ \"%.6f\" | format(finder_iconview_icon_size|float) }}" }
+    - { name: "DesktopViewSettings:IconViewSettings:iconSize", value: "{{ \"%.6f\" | format(finder.iconview_icon_size|float) }}" }
+    - { name: "StandardViewSettings:IconViewSettings:iconSize", value: "{{ \"%.6f\" | format(finder.iconview_icon_size|float) }}" }
   notify: Restart Finder
   when: finder_iconview_icon_size_value.results[item.0].stdout != item.1.value
 

@@ -1,127 +1,128 @@
 ---
 
-## SYSTEM
-
-# ui
-system_interface_style: "Dark" # other val is: "Light"
-system_expand_save_panel_by_default: yes
-system_expand_print_panel_by_default: yes
-system_doubleclick_on_titlebar_action: "Minimize" # other val is: "Maximize"
-system_enable_subpixel_font_rendering: yes
-
-# screensaver
-system_screensaver_activation_delay: 180
-system_screensaver_ask_password: yes
-system_screensaver_ask_password_delay: 60
-
-# input
-system_enable_auto_correct: no
-system_enable_smart_quotes: no
-system_enable_smart_dashes: no
-system_enable_automatic_capitalization: no
-system_enable_automatic_periods: no
-system_enable_continuous_spell_checking: no
-system_key_repeat_rate: 2 # min = 1
-system_initial_key_repeat_delay: 22
-system_enable_full_keyboard_access: yes
-system_enable_press_and_hold: no
-
-# hostname
-system_computername: null
-system_hostname: null
-system_localhostname: null
-
-# misc
-system_show_all_file_extensions: yes
-system_enable_focus_ring: no
-system_default_applications: []
-system_disable_dashboard: yes
-system_save_application_state_on_quit: yes
-system_springloading_directories_delay: 2
-system_disable_dsstore_on_network_shares: yes
-system_disable_dsstore_on_usb_drives: yes
-system_disable_disk_image_verification: yes
-system_disable_spotlight_network_indexing: yes
-system_save_new_docs_to_icloud: no
-system_enable_ssh: yes
-system_enable_crash_reporter: no
-system_enable_startup_sound: no
-system_enable_springloading_directories: yes
-system_enable_sudden_motion_sensor: yes
-system_enable_hibernation: yes
-system_enable_gatekeeper: no
-system_enable_quarantine: no
-system_enable_space_hotkeys: [1, 2, 3, 4, 5, 6]
+system: {}
+system_defaults:
+  ui:
+    interface_style: "Light" # other val is: "Light"
+    expand_save_panel_by_default: no
+    expand_print_panel_by_default: no
+    doubleclick_on_titlebar_action: "Maximize" # other val is: "Minimize"
+    enable_subpixel_font_rendering: no
+    enable_focus_ring: yes
+    show_all_file_extensions: no
+    disable_dashboard: yes
+    enable_springloading_directories: yes
+    springloading_directories_delay: 2
+  screensaver:
+    activation_delay: 180
+    ask_password: yes
+    ask_password_delay: 60
+  input:
+    enable_auto_correct: yes
+    enable_smart_quotes: yes
+    enable_smart_dashes: yes
+    enable_automatic_capitalization: yes
+    enable_automatic_periods: yes
+    enable_continuous_spell_checking: yes
+    key_repeat_rate: 2 # min = 1
+    initial_key_repeat_delay: 22
+    enable_full_keyboard_access: no
+    enable_press_and_hold: yes
+    enable_space_hotkeys: []
+  hostname:
+    computername: null
+    hostname: null
+    localhostname: null
+  security:
+    enable_gatekeeper: yes
+    enable_quarantine: yes
+  misc:
+    save_application_state_on_quit: yes
+    disable_dsstore_on_network_shares: no
+    disable_dsstore_on_usb_drives: no
+    disable_disk_image_verification: no
+    disable_spotlight_network_indexing: no
+    save_new_docs_to_icloud: yes
+    enable_ssh: no
+    enable_crash_reporter: yes
+    enable_startup_sound: yes
+    enable_sudden_motion_sensor: yes
+    enable_hibernation: yes
+  default_applications: []
 
 
-## FINDER
+finder: {}
+finder_defaults:
+  new_window_target: "PfHm" # home
+  show_file_extensions_warning: yes
+  warn_before_emptying_the_trash: yes
+  show_all_files: no
+  keep_folders_on_top: yes
+  show_full_path_in_titlebar: no
+  show_pathbar: no
+  show_statusbar: no
+  enable_quit_menu_item: no
+  default_view_style: "Nlsv" # other vals are: "icnv", "clmv", "Flwv"
+  show_external_harddrives_on_desktop: yes
+  show_harddrives_on_desktop: yes
+  show_mounted_servers_on_desktop: yes
+  show_removable_media_on_desktop: yes
+  iconview_show_item_info: no
+  iconview_show_label_on_bottom: yes
+  hide_user_library: yes
+  hide_system_volumes: yes
+  expand_infopane: 
+    - { name: General , value: yes }
+    - { name: MetaData , value: yes }
+    - { name: OpenWith , value: yes }
+    - { name: Name , value: yes }  
+    - { name: Comments , value: yes }
+    - { name: Preview , value: yes }
+    - { name: Privileges , value: yes }
+  iconview_arrange_by: "grid"
+  iconview_grid_spacing: 60
+  iconview_icon_size: 50
+  enable_quicklook_text_selection: no
 
-finder_new_window_target: "PfHm" # home
-finder_show_file_extensions_warning: no
-finder_warn_before_emptying_the_trash: no
-finder_show_all_files: yes
-finder_keep_folders_on_top: yes
-finder_show_full_path_in_titlebar: yes
-finder_show_pathbar: yes
-finder_show_statusbar: yes
-finder_enable_quit_menu_item: yes
-finder_default_view_style: "Nlsv" # other vals are: "icnv", "clmv", "Flwv"
-finder_show_external_harddrives_on_desktop: yes
-finder_show_harddrives_on_desktop: yes
-finder_show_mounted_servers_on_desktop: yes
-finder_show_removable_media_on_desktop: yes
-finder_iconview_show_item_info: yes
-finder_iconview_show_label_on_bottom: no
-finder_hide_user_library: no
-finder_hide_system_volumes: no
-finder_expand_infopane: 
-  - { name: General , value: yes }
-  - { name: MetaData , value: yes }
-  - { name: OpenWith , value: yes }
-  - { name: Name , value: yes }  
-  - { name: Comments , value: yes }
-  - { name: Preview , value: yes }
-  - { name: Privileges , value: yes }
-finder_iconview_arrange_by: "grid"
-finder_iconview_grid_spacing: 60
-finder_iconview_icon_size: 50
-finder_enable_quicklook_text_selection: yes
 
-
-## DOCK
-
-dock_tile_size: 50
-dock_show_idicator_lights: yes
-dock_hidden_items_translucent: yes
-dock_fade_in_time: 0
-dock_rearrange_spaces_by_last_use: no
-dock_autohide: yes
-dock_apps_force_install: no
-dock_apps_remove_undefined: yes
-dock_apps: []
-dock_spacers: []
+dock: {}
+dock_defaults:
+  tile_size: 50
+  show_idicator_lights: yes
+  hidden_items_translucent: no
+  fade_in_time: 0
+  rearrange_spaces_by_last_use: yes
+  autohide: no
+  apps_force_install: no
+  apps_remove_undefined: yes
+  apps: []
+  spacers: []
 
 
 ## SAFARI
-
-safari_show_full_url_in_address_bar: yes
-safari_open_safe_files_automatically: no
-safari_enable_status_bar: yes
-safari_enable_developer_menu: yes
-safari_autofill_passwords: no
+safari: {}
+safari_defaults:
+  show_full_url_in_address_bar: no
+  open_safe_files_automatically: no
+  enable_status_bar: no
+  enable_developer_menu: no
+  autofill_passwords: yes
 
 
 ## MAIL
-
-mail_address_include_name_on_pasteboard: no
+mail: {}
+mail_defaults:
+  address_include_name_on_pasteboard: yes
 
 
 ## TEXTEDIT
-
-textedit_default_doc_plaintext: yes
+textedit: {}
+textedit_defaults:
+  default_doc_plaintext: no
 
 
 ## TERMINAL
 
-terminal_enable_secure_keyboard_entry: no
-
+terminal: {}
+terminal_defaults:
+  enable_secure_keyboard_entry: yes

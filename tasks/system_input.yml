@@ -1,0 +1,114 @@
+---
+
+- name: Input - Enable auto correct ({{ system.input.enable_auto_correct }}).
+  osx_defaults:
+    key: NSAutomaticSpellingCorrectionEnabled
+    type: bool
+    value: "{{ system.input.enable_auto_correct | bool }}"
+
+- name: Input - Enable smart quotes ({{ system.input.enable_smart_quotes }}).
+  osx_defaults:
+    key: NSAutomaticQuoteSubstitutionEnabled
+    type: bool
+    value: "{{ system.input.enable_smart_quotes | bool }}"
+
+- name: Input - Enable smart dashes ({{ system.input.enable_smart_dashes }}).
+  osx_defaults:
+    key: NSAutomaticDashSubstitutionEnabled
+    type: bool
+    value: "{{ system.input.enable_smart_dashes | bool }}"
+
+- name: Input - Enable automatic capitalization ({{ system.input.enable_automatic_capitalization }}).
+  osx_defaults:
+    key: NSAutomaticCapitalizationEnabled
+    type: bool
+    value: "{{ system.input.enable_automatic_capitalization | bool }}"
+
+- name: Input - Enable automatic period substitution ({{ system.input.enable_automatic_periods }}).
+  osx_defaults:
+    key: NSAutomaticPeriodSubstitutionEnabled
+    type: bool
+    value: "{{ system.input.enable_automatic_periods | bool }}"
+
+- name: Input - Enable continuous spell checking ({{ system.input.enable_continuous_spell_checking }}).
+  osx_defaults:
+    key: NSAllowContinuousSpellChecking
+    type: bool
+    value: "{{ system.input.enable_continuous_spell_checking | bool }}"
+
+# 1 : Text boxes and lists only
+# 3 : All controls
+- name: Input - Enable full keyboard access for all controls ({{ system.input.enable_full_keyboard_access }}). #(e.g. enable Tab in modal dialogs)
+  osx_defaults:
+    #state: "{{ 'present' if system.input.enable_full_keyboard_access else 'absent' }}"
+    key: AppleKeyboardUIMode
+    type: int
+    value: "{{ 3 if system.input.enable_full_keyboard_access else 1 }}"   
+
+- name: Input - Set key repeat rate ({{ system.input.key_repeat_rate }}).
+  osx_defaults:
+    key: KeyRepeat
+    type: int
+    value: "{{ system.input.key_repeat_rate }}"
+
+- name: Input - Set initial key repeat delay ({{ system.input.initial_key_repeat_delay }}).
+  osx_defaults:
+    key: InitialKeyRepeat
+    type: int
+    value: "{{ system.input.initial_key_repeat_delay }}"
+
+- name: Input - Enable press-and-hold for special characters ({{ system.input.enable_press_and_hold }}).
+  osx_defaults:
+    key: ApplePressAndHoldEnabled
+    type: bool
+    value: "{{ system.input.enable_press_and_hold | bool }}"
+
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
+
+- name: Input - Set space changing hotkeys (Read settings).
+  command: /usr/libexec/PlistBuddy -c "Print :AppleSymbolicHotKeys:{{ item + 117 }}:enabled" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  with_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  register: space_changing_hotkey_status
+  failed_when: false
+  changed_when: false
+
+- name: Input - Set space changing hotkeys (Create vars).
+  set_fact:
+    hk_tmp_item: "{{ item.stdout | bool }}"
+  with_items: "{{ space_changing_hotkey_status.results }}"
+  register: hk_tmp_items
+  no_log: true
+
+- name: Input - Set space changing hotkeys (Create vars).
+  set_fact:
+    space_changing_hotkey_status_parsed: "{{ hk_tmp_items.results | map(attribute='ansible_facts.hk_tmp_item') | list }}"
+
+- name: Input - Set space changing hotkeys (Create dict).
+  command: >
+    /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }} dict"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled bool {{'true' if item.1 in system.input.enable_space_hotkeys else 'false'}}"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value dict"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters array"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:type string \"standard\""
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer 65535"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer {{ {1: 18, 2: 19, 3: 20, 4: 21, 5: 23, 6: 22, 7: 26, 8: 28, 9: 25}[item.1] }}"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer 262144"
+  with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  when: space_changing_hotkey_status.results[item.0].stderr != ""
+
+- name: Input - Set space changing hotkeys (Create vars).
+  set_fact:
+    hk_tmp_item: "{{ true if item in system.input.enable_space_hotkeys else false }}"
+  with_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  register: hk_tmp_items2
+
+- name: Input - Set space changing hotkeys (Create vars).
+  set_fact:
+    space_changing_hotkeys_parsed: "{{ hk_tmp_items2.results | map(attribute='ansible_facts.hk_tmp_item') | list }}"
+
+- name: Input - Set space changing hotkeys (Update dict).
+  command: /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled {{'true' if item.1 in system.input.enable_space_hotkeys else 'false'}}" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  when: space_changing_hotkey_status_parsed[item.0] != space_changing_hotkeys_parsed[item.0] and space_changing_hotkey_status.results[item.0].stderr == ""

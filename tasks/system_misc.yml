@@ -1,271 +1,106 @@
 ---
 
-- name: Disable Dashboard ({{ system_disable_dashboard }}).
-  osx_defaults:
-    domain: com.apple.dashboard
-    key: mcx-disabled
-    type: bool
-    value: "{{ system_disable_dashboard | bool }}"
-
-- name: Enable auto correct ({{ system_enable_auto_correct }}).
-  osx_defaults:
-    key: NSAutomaticSpellingCorrectionEnabled
-    type: bool
-    value: "{{ system_enable_auto_correct | bool }}"
-
-- name: Enable smart quotes ({{ system_enable_smart_quotes }}).
-  osx_defaults:
-    key: NSAutomaticQuoteSubstitutionEnabled
-    type: bool
-    value: "{{ system_enable_smart_quotes | bool }}"
-
-- name: Enable smart dashes ({{ system_enable_smart_dashes }}).
-  osx_defaults:
-    key: NSAutomaticDashSubstitutionEnabled
-    type: bool
-    value: "{{ system_enable_smart_dashes | bool }}"
-
-- name: Enable automatic capitalization ({{ system_enable_automatic_capitalization }}).
-  osx_defaults:
-    key: NSAutomaticCapitalizationEnabled
-    type: bool
-    value: "{{ system_enable_automatic_capitalization | bool }}"
-
-- name: Enable automatic period substitution ({{ system_enable_automatic_periods }}).
-  osx_defaults:
-    key: NSAutomaticPeriodSubstitutionEnabled
-    type: bool
-    value: "{{ system_enable_automatic_periods | bool }}"
-
-- name: Enable continuous spell checking ({{ system_enable_continuous_spell_checking }}).
-  osx_defaults:
-    key: NSAllowContinuousSpellChecking
-    type: bool
-    value: "{{ system_enable_continuous_spell_checking | bool }}"
-
-- name: Save application state on quit ({{ system_save_application_state_on_quit }}).
+- name: Misc - Save application state on quit ({{ system.misc.save_application_state_on_quit }}).
   osx_defaults:
     key: NSQuitAlwaysKeepsWindows
     type: bool
-    value: "{{ system_save_application_state_on_quit | bool }}"
+    value: "{{ system.misc.save_application_state_on_quit | bool }}"
 
-- name: Expand save panel by default ({{ system_expand_save_panel_by_default }}).
-  osx_defaults:
-    key: NSNavPanelExpandedStateForSaveMode
-    type: bool
-    value: "{{ system_expand_save_panel_by_default | bool }}"
-  notify: Restart Finder
-
-- name: Expand print panel by default ({{ system_expand_print_panel_by_default }}).
-  osx_defaults:
-    key: PMPrintingExpandedStateForPrint
-    type: bool
-    value: "{{ system_expand_print_panel_by_default | bool }}"
-  notify: Restart Finder
-
-- name: Enable spring loading for directories ({{ system_enable_springloading_directories }}).
-  osx_defaults:
-    key: com.apple.springing.enabled
-    type: bool
-    value: "{{ system_enable_springloading_directories | bool }}"
-
-- name: Set delay for spring loading directories ({{ system_springloading_directories_delay }}).
-  osx_defaults:
-    key: com.apple.springing.delay
-    type: float
-    value: "{{ system_springloading_directories_delay }}"
-
-- name: Disable creating .DS_Store files on network shares ({{ system_disable_dsstore_on_network_shares }}).
+- name: Misc - Disable creating .DS_Store files on network shares ({{ system.misc.disable_dsstore_on_network_shares }}).
   osx_defaults:
     domain: com.apple.desktopservices
     key: DSDontWriteNetworkStores
     type: bool
-    value: "{{ system_disable_dsstore_on_network_shares | bool }}"
+    value: "{{ system.misc.disable_dsstore_on_network_shares | bool }}"
 
-- name: Disable creating .DS_Store files on usb drives ({{ system_disable_dsstore_on_usb_drives }}).
+- name: Misc - Disable creating .DS_Store files on usb drives ({{ system.misc.disable_dsstore_on_usb_drives }}).
   osx_defaults:
     domain: com.apple.desktopservices
     key: DSDontWriteUSBStores
     type: bool
-    value: "{{ system_disable_dsstore_on_usb_drives | bool }}"
+    value: "{{ system.misc.disable_dsstore_on_usb_drives | bool }}"
 
-- name: Disable disk image verification ({{ system_disable_disk_image_verification }}).
+- name: Misc - Disable disk image verification ({{ system.misc.disable_disk_image_verification }}).
   osx_defaults:
     domain: com.apple.frameworks.diskimages
     key: "{{ item }}"
     type: bool
-    value: "{{ system_disable_disk_image_verification | bool }}"
+    value: "{{ system.misc.disable_disk_image_verification | bool }}"
   with_items:
     - skip-verify
     - skip-verify-locked
     - skip-verify-remote
 
-- name: Set action for double click on titlebar ({{ system_doubleclick_on_titlebar_action }}).
-  osx_defaults:
-    key: AppleActionOnDoubleClick
-    type: string
-    value: "{{ system_doubleclick_on_titlebar_action }}"
-
-- name: Set interface style ({{ system_interface_style }}).
-  osx_defaults:
-    key: AppleInterfaceStyle
-    type: string
-    value: "{{ system_interface_style }}"
-
-# 1 : Text boxes and lists only
-# 3 : All controls
-- name: Enable full keyboard access for all controls ({{ system_enable_full_keyboard_access }}). #(e.g. enable Tab in modal dialogs)
-  osx_defaults:
-    #state: "{{ 'present' if system_enable_full_keyboard_access else 'absent' }}"
-    key: AppleKeyboardUIMode
-    type: int
-    value: "{{ 3 if system_enable_full_keyboard_access else 1 }}"   
-
-- name: Enable subpixel font rendering on non-Apple LCDs ({{ system_enable_subpixel_font_rendering }}). # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
-  osx_defaults:
-    state: "{{ 'present' if system_enable_subpixel_font_rendering else 'absent' }}"
-    key: AppleFontSmoothing
-    type: int
-    value: 1 
-
-- name: Show all file extensions ({{ system_show_all_file_extensions }}).
-  osx_defaults:
-    key: AppleShowAllExtensions
-    type: bool
-    value: "{{ system_show_all_file_extensions | bool }}"
-
-- name: Enable focus ring ({{ system_enable_focus_ring }}).
-  osx_defaults:
-    key: NSUseAnimatedFocusRing
-    type: bool
-    value: "{{ system_enable_focus_ring | bool }}"
-
-- name: Set key repeat rate ({{ system_key_repeat_rate }}).
-  osx_defaults:
-    key: KeyRepeat
-    type: int
-    value: "{{ system_key_repeat_rate }}"
-
-- name: Set initial key repeat delay ({{ system_initial_key_repeat_delay }}).
-  osx_defaults:
-    key: InitialKeyRepeat
-    type: int
-    value: "{{ system_initial_key_repeat_delay }}"
-
-- name: Enable press-and-hold for special characters ({{ system_enable_press_and_hold }}).
-  osx_defaults:
-    key: ApplePressAndHoldEnabled
-    type: bool
-    value: "{{ system_enable_press_and_hold | bool }}"
-
-- name: Enable crash reporter ({{ system_enable_crash_reporter }}).
+- name: Misc - Enable crash reporter ({{ system.misc.enable_crash_reporter }}).
   osx_defaults:
     domain: com.apple.CrashReporter
-    state: "{{ 'absent' if system_enable_crash_reporter else 'present' }}"
+    state: "{{ 'absent' if system.misc.enable_crash_reporter else 'present' }}"
     key: DialogType
     type: string
     value: "none" 
 
-- name: Get startup sound status.
+- name: Misc - Get startup sound status.
   command: nvram SystemAudioVolume
   register: startup_sound_status
   become: yes
   changed_when: false
   failed_when: false
 
-- name: Enable startup sound ({{ system_enable_startup_sound }}).
-  command: "{{ 'nvram -d SystemAudioVolume' if system_enable_startup_sound else 'nvram SystemAudioVolume=\" \"' }}"
+- name: Misc - Enable startup sound ({{ system.misc.enable_startup_sound }}).
+  command: "{{ 'nvram -d SystemAudioVolume' if system.misc.enable_startup_sound else 'nvram SystemAudioVolume=\" \"' }}"
   become: yes
-  when: startup_sound_status.stderr.find("Error") != -1 and not system_enable_startup_sound or startup_sound_status.stderr.find("Error") == -1 and system_enable_startup_sound
+  when: startup_sound_status.stderr.find("Error") != -1 and not system.misc.enable_startup_sound or startup_sound_status.stderr.find("Error") == -1 and system.misc.enable_startup_sound
 
-- name: Save new docs to icloud by default ({{ system_save_new_docs_to_icloud }}).
+- name: Misc - Save new docs to icloud by default ({{ system.misc.save_new_docs_to_icloud }}).
   osx_defaults:
     key: NSDocumentSaveNewDocumentsToCloud
     type: bool
-    value: "{{ system_save_new_docs_to_icloud | bool }}"
+    value: "{{ system.misc.save_new_docs_to_icloud | bool }}"
 
-- name: Get ssh service status.
+- name: Misc - Get ssh service status.
   shell: systemsetup -getremotelogin
   register: ssh_status
   changed_when: false
   become: yes
 
-- name: Enable ssh ({{ system_enable_ssh }}).
-  command: "launchctl {{ 'load -w ' if system_enable_ssh else 'unload -w' }} /System/Library/LaunchDaemons/ssh.plist"
+- name: Misc - Enable ssh ({{ system.misc.enable_ssh }}).
+  command: "launchctl {{ 'load -w ' if system.misc.enable_ssh else 'unload -w' }} /System/Library/LaunchDaemons/ssh.plist"
   become: yes
-  when: ssh_status.stdout.find("Off") != -1 and system_enable_ssh or ssh_status.stdout.find("On") != -1 and not system_enable_ssh
+  when: ssh_status.stdout.find("Off") != -1 and system.misc.enable_ssh or ssh_status.stdout.find("On") != -1 and not system.misc.enable_ssh
 
-- name: Enable application quarantine ({{ system_enable_quarantine }}).
-  osx_defaults:
-    domain: com.apple.LaunchServices
-    key: NSDocumentSaveNewDocumentsToCloud
-    type: bool
-    value: "{{ system_enable_quarantine | bool }}"
-
-# @TODO 
-# Replace this shit as soon as ansible supports osx_defaults with dicts
-
-- name: Set space changing hotkeys (Read settings).
-  command: /usr/libexec/PlistBuddy -c "Print :AppleSymbolicHotKeys:{{ item + 117 }}:enabled" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-  with_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  register: space_changing_hotkey_status
-  failed_when: false
+- name: Misc - Read hibernation setting.
+  shell: pmset -g | grep hibernatemode
+  register: hibernate_status
   changed_when: false
 
-- name: Set space changing hotkeys (Create vars).
-  set_fact:
-    hk_tmp_item: "{{ item.stdout | bool }}"
-  with_items: "{{ space_changing_hotkey_status.results }}"
-  register: hk_tmp_items
-  no_log: true
-
-- name: Set space changing hotkeys (Create vars).
-  set_fact:
-    space_changing_hotkey_status_parsed: "{{ hk_tmp_items.results | map(attribute='ansible_facts.hk_tmp_item') | list }}"
-
-- name: Set space changing hotkeys (Create dict).
-  command: >
-    /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }} dict"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled bool {{'true' if item.1 in system_enable_space_hotkeys else 'false'}}"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value dict"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters array"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:type string \"standard\""
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer 65535"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer {{ {1: 18, 2: 19, 3: 20, 4: 21, 5: 23, 6: 22, 7: 26, 8: 28, 9: 25}[item.1] }}"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters: integer 262144"
-  with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  when: space_changing_hotkey_status.results[item.0].stderr != ""
-
-- name: Set space changing hotkeys (Create vars).
-  set_fact:
-    hk_tmp_item: "{{ true if item in system_enable_space_hotkeys else false }}"
-  with_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  register: hk_tmp_items2
-
-- name: Set space changing hotkeys (Create vars).
-  set_fact:
-    space_changing_hotkeys_parsed: "{{ hk_tmp_items2.results | map(attribute='ansible_facts.hk_tmp_item') | list }}"
-
-- name: Set space changing hotkeys (Update dict).
-  command: /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled {{'true' if item.1 in system_enable_space_hotkeys else 'false'}}" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-  with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  when: space_changing_hotkey_status_parsed[item.0] != space_changing_hotkeys_parsed[item.0] and space_changing_hotkey_status.results[item.0].stderr == ""
-
-- name: Get gatekeeper status.
-  command: spctl --status
-  register: gatekeeper_status
-  changed_when: false
-  failed_when: false
-  tags: test
-- name: Enable Gatekeeper ({{ system_enable_gatekeeper }}).
-  command: spctl "{{ '--master-enable' if system_enable_gatekeeper else '--master-disable' }}" 
+# speeds up entering sleep mode when disabled
+- name: Misc - Enable hibernation ({{ system.misc.enable_hibernation }}).
   become: true
-  when: (gatekeeper_status.stdout.find('enabled') != -1 and not system_enable_gatekeeper) 
-        or (gatekeeper_status.stdout.find('disabled') != -1 and system_enable_gatekeeper) 
-  tags: test
+  shell: pmset -a hibernatemode {{ 3 if system.misc.enable_hibernation else system.misc.enable_hibernation | int }}
+  when: (hibernate_status.stdout.find("3") != -1 and not system.misc.enable_hibernation) or
+        (hibernate_status.stdout.find("0") != -1 and system.misc.enable_hibernation)
 
-#- name: Remove duplicates in the “Open With” menu.
+- name: Misc - Read sudden motion sensor setting.
+  shell: pmset -g | grep sms
+  register: sms_status
+  changed_when: false
+  failed_when: false
+
+- name: Misc - Enable sudden motion sensor ({{ system.misc.enable_sudden_motion_sensor }}).
+  become: true
+  shell: pmset -a sms "{{ system.misc.enable_sudden_motion_sensor | int }}"
+  when: 
+    - sms_status.stdout != ""
+    - (sms_status.stdout.find("1") != -1 and not system.misc.enable_sudden_motion_sensor) or
+      (sms_status.stdout.find("0") != -1 and system.misc.enable_sudden_motion_sensor)
+
+- name: Misc - Disable spotlight indexing network volumes ({{ system.misc.disable_spotlight_network_indexing }}).
+  become: true
+  osx_defaults:
+    domain: /Library/Preferences/com.apple.SpotlightServer.plist
+    key: ExternalVolumesIgnore
+    type: bool
+    value: "{{ system.misc.disable_spotlight_network_indexing | bool }}"
+    
+#- name: Misc - Remove duplicates in the “Open With” menu.
 #  command: /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local
-
-

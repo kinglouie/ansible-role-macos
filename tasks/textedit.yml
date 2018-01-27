@@ -1,10 +1,10 @@
 ---
 
-- name: Set plaintext as default ({{ textedit_default_doc_plaintext }}).
+- name: TextEdit - Set plaintext as default ({{ textedit.default_doc_plaintext }}).
   osx_defaults:
     domain: com.apple.TextEdit
     key: RichText
-    state: "{{ 'present' if textedit_default_doc_plaintext else 'absent' }}"
+    state: "{{ 'present' if textedit.default_doc_plaintext else 'absent' }}"
     type: int
     value: 0
   notify: Restart TextEdit

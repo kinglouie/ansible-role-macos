@@ -1,20 +1,20 @@
 ---
 
-- name: Ensure required tools
+- name: Default applications - Ensure required tools
   homebrew:
     name: duti
     state: latest
 
-- name: Get default applications for file types.
+- name: Default applications - Get default applications for file types.
   command: >
     duti -x {{ item.extension }}
   register: duti_result
-  with_items: "{{ system_default_applications }}"
+  with_items: "{{ system.default_applications }}"
   changed_when: false
   failed_when: false
 
-- name: Set default applications for file types.
+- name: Default applications - Set default applications for file types.
   command: >
     duti -s {{ item.1.handler }} {{ item.1.extension }} {{ item.1.roles|default('all') }}
-  with_indexed_items: "{{ system_default_applications }}"
+  with_indexed_items: "{{ system.default_applications }}"
   changed_when: item.1.handler not in duti_result.results[item.0].stdout

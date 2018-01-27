@@ -1,9 +1,9 @@
 ---
 
-- name: Addresses include name on pasteboard ({{ mail_address_include_name_on_pasteboard }}).
+- name: Mail - Addresses include name on pasteboard ({{ mail.address_include_name_on_pasteboard }}).
   osx_defaults:
     domain: com.apple.mail
     key: AddressesIncludeNameOnPasteboard
     type: bool
-    value: "{{ mail_address_include_name_on_pasteboard | bool }}"
+    value: "{{ mail.address_include_name_on_pasteboard | bool }}"
   notify: Restart Mail

@@ -1,0 +1,21 @@
+---
+
+- name: Security - Enable application quarantine ({{ system.security.enable_quarantine }}).
+  osx_defaults:
+    domain: com.apple.LaunchServices
+    key: NSDocumentSaveNewDocumentsToCloud
+    type: bool
+    value: "{{ system.security.enable_quarantine | bool }}"
+
+- name: Security - Get gatekeeper status.
+  command: spctl --status
+  register: gatekeeper_status
+  changed_when: false
+  failed_when: false
+  tags: test
+- name: Security - Enable Gatekeeper ({{ system.security.enable_gatekeeper }}).
+  command: spctl "{{ '--master-enable' if system.security.enable_gatekeeper else '--master-disable' }}" 
+  become: true
+  when: (gatekeeper_status.stdout.find('enabled') != -1 and not system.security.enable_gatekeeper) 
+        or (gatekeeper_status.stdout.find('disabled') != -1 and system.security.enable_gatekeeper) 
+  tags: test
