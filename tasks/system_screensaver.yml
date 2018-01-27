@@ -1,12 +1,28 @@
 ---
 
+# On a fresh osx install the type of idletime is string, if activated it gets changed to int
+
+- name: Screensaver - Read idleTime type.
+  command: defaults -currentHost read-type com.apple.screensaver idleTime
+  register: idletime_type
+  changed_when: false
+
+- name: Screensaver - Change idleTime type to int.
+  command: "{{ item }}"
+  with_items:
+    - defaults -currentHost write com.apple.screensaver idleTime -int "{{ system.screensaver.activation_delay }}"
+    - defaults -currentHost write com.apple.screensaver PrefsVersion -int 100
+    - defaults -currentHost write com.apple.screensaver CleanExit -string YES
+    - defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName -string "Flurry" displayName -string "Flurry" path -string "/System/Library/Screen Savers/Flurry.saver" type -int 0
+  when: idletime_type.stdout.find('string') != -1
+
 - name: Screensaver - Set activation delay for screensaver ({{ system.screensaver.activation_delay }}).
   osx_defaults:
     domain: com.apple.screensaver
     host: currentHost
     key: idleTime
     type: int
-    value: "{{ system.screensaver.activation_delay }}"
+    value: "{{ system.screensaver.activation_delay | int }}"
 
 - name: Screensaver - Ask for a password when leaving the screensaver ({{ system.screensaver.ask_password }}).
   osx_defaults:

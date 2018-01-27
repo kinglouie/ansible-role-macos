@@ -14,9 +14,9 @@ system_defaults:
     enable_springloading_directories: yes
     springloading_directories_delay: 2
   screensaver:
-    activation_delay: 180
-    ask_password: yes
-    ask_password_delay: 60
+    activation_delay: 0
+    ask_password: no
+    ask_password_delay: 0
   input:
     enable_auto_correct: yes
     enable_smart_quotes: yes
