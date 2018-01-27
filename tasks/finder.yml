@@ -13,7 +13,7 @@
     domain: com.apple.finder
     key: FXEnableExtensionChangeWarning
     type: bool
-    value: "{{ finder.show_file_extensions_warning|bool }}"
+    value: "{{ finder.show_file_extensions_warning | bool }}"
   notify: Restart Finder
 
 - name: Finder - Warn before emptying the trash ({{ finder.warn_before_emptying_the_trash }}).
@@ -21,7 +21,7 @@
     domain: com.apple.finder
     key: WarnOnEmptyTrash
     type: bool
-    value: "{{ finder.warn_before_emptying_the_trash|bool }}"
+    value: "{{ finder.warn_before_emptying_the_trash | bool }}"
   notify: Restart Finder
 
 - name: Finder - Show All Files ({{ finder.show_all_files }})
@@ -29,7 +29,7 @@
     domain: com.apple.finder
     key: AppleShowAllFiles
     type: bool
-    value: "{{ finder.show_all_files|bool }}"
+    value: "{{ finder.show_all_files | bool }}"
   notify: Restart Finder
 
 - name: Finder - Keep folders on top when sorting by name ({{ finder.keep_folders_on_top }}).
@@ -37,7 +37,7 @@
     domain: com.apple.finder
     key: _FXSortFoldersFirst
     type: bool
-    value: "{{ finder.keep_folders_on_top|bool }}"
+    value: "{{ finder.keep_folders_on_top | bool }}"
   notify: Restart Finder
 
 - name: Finder - Show full path in finder titlebar ({{ finder.show_full_path_in_titlebar }}).
@@ -45,7 +45,7 @@
     domain: com.apple.finder
     key: _FXShowPosixPathInTitle
     type: bool
-    value: "{{ finder.show_full_path_in_titlebar|bool }}"
+    value: "{{ finder.show_full_path_in_titlebar | bool }}"
   notify: Restart Finder
 
 - name: Finder - Show pathbar in bottom of finder ({{ finder.show_pathbar }}).
@@ -53,7 +53,7 @@
     domain: com.apple.finder
     key: ShowPathbar
     type: bool
-    value: "{{ finder.show_pathbar|bool }}"
+    value: "{{ finder.show_pathbar | bool }}"
   notify: Restart Finder
 
 - name: Finder - Show statusbar ({{ finder.show_statusbar }}).
@@ -61,7 +61,7 @@
     domain: com.apple.finder
     key: ShowStatusBar
     type: bool
-    value: "{{ finder.show_statusbar|bool }}"
+    value: "{{ finder.show_statusbar | bool }}"
   notify: Restart Finder
 
 - name: Finder - When performing a search, search the current folder by default.
@@ -77,7 +77,7 @@
     domain: com.apple.finder
     key: QuitMenuItem
     type: bool
-    value: "{{ finder.enable_quit_menu_item|bool }}"
+    value: "{{ finder.enable_quit_menu_item | bool }}"
   notify: Restart Finder
 
 - name: Finder - Default view style ({{ finder.default_view_style }}).
@@ -93,7 +93,7 @@
     domain: com.apple.finder
     key: ShowExternalHardDrivesOnDesktop
     type: bool
-    value: "{{ finder.show_external_harddrives_on_desktop|bool }}"
+    value: "{{ finder.show_external_harddrives_on_desktop | bool }}"
   notify: Restart Finder
 
 - name: Finder - Show harddrives on desktop ({{ finder.show_harddrives_on_desktop }}).
@@ -101,7 +101,7 @@
     domain: com.apple.finder
     key: ShowHardDrivesOnDesktop
     type: bool
-    value: "{{ finder.show_harddrives_on_desktop|bool }}"
+    value: "{{ finder.show_harddrives_on_desktop | bool }}"
   notify: Restart Finder
 
 - name: Finder - Show mounted servers on desktop ({{ finder.show_mounted_servers_on_desktop }}).
@@ -109,7 +109,7 @@
     domain: com.apple.finder
     key: ShowMountedServersOnDesktop
     type: bool
-    value: "{{ finder.show_mounted_servers_on_desktop|bool }}"
+    value: "{{ finder.show_mounted_servers_on_desktop | bool }}"
   notify: Restart Finder
 
 - name: Finder - Show removable media on desktop ({{ finder.show_removable_media_on_desktop }}).
@@ -117,7 +117,7 @@
     domain: com.apple.finder
     key: ShowRemovableMediaOnDesktop
     type: bool
-    value: "{{ finder.show_removable_media_on_desktop|bool }}"
+    value: "{{ finder.show_removable_media_on_desktop | bool }}"
   notify: Restart Finder
 
 - name: Finder - Get user library folder status.
@@ -271,6 +271,13 @@
   notify: Restart Finder
   when: finder_iconview_icon_size_value.results[item.0].stdout != item.1.value
 
+- name: Finder - Disable window and get info animations ({{ finder.disable_all_animations }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: DisableAllAnimations
+    type: bool
+    value: "{{ finder.disable_all_animations | bool }}"
+  notify: Restart Finder
 
 # Show Drives and Servers in Sidebar
 #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true

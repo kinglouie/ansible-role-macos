@@ -87,6 +87,7 @@ finder_defaults:
   iconview_grid_spacing: 60
   iconview_icon_size: 50
   enable_quicklook_text_selection: no
+  disable_all_animations: no
 
 
 dock: {}
