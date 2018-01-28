@@ -88,7 +88,7 @@
   command: >
     /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }} dict"
-    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled bool {{'true' if item.1 in system.input.enable_space_hotkeys else 'false'}}"
+    -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled bool {{ system.input.enable_space_hotkeys | bool }}"
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value dict"
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:parameters array"
     -c "Add :AppleSymbolicHotKeys:{{ item.1 + 117 }}:value:type string \"standard\""
@@ -98,17 +98,7 @@
   with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   when: space_changing_hotkey_status.results[item.0].stderr != ""
 
-- name: Input - Set space changing hotkeys (Create vars).
-  set_fact:
-    hk_tmp_item: "{{ true if item in system.input.enable_space_hotkeys else false }}"
-  with_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  register: hk_tmp_items2
-
-- name: Input - Set space changing hotkeys (Create vars).
-  set_fact:
-    space_changing_hotkeys_parsed: "{{ hk_tmp_items2.results | map(attribute='ansible_facts.hk_tmp_item') | list }}"
-
 - name: Input - Set space changing hotkeys (Update dict).
-  command: /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled {{'true' if item.1 in system.input.enable_space_hotkeys else 'false'}}" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+  command: /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:{{ item.1 + 117 }}:enabled {{ system.input.enable_space_hotkeys | bool }}" ~/Library/Preferences/com.apple.symbolichotkeys.plist
   with_indexed_items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  when: space_changing_hotkey_status_parsed[item.0] != space_changing_hotkeys_parsed[item.0] and space_changing_hotkey_status.results[item.0].stderr == ""
+  when: space_changing_hotkey_status_parsed[item.0] != system.input.enable_space_hotkeys and space_changing_hotkey_status.results[item.0].stderr == ""

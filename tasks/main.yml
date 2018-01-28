@@ -12,16 +12,16 @@
   tags: always
 
 - import_tasks: system_input.yml
-  tags: [system]
+  tags: [system, input]
 
 - import_tasks: system_ui.yml
-  tags: [system]
+  tags: [system, ui]
 
 - import_tasks: system_security.yml
-  tags: [system]
+  tags: [system, security]
 
 - import_tasks: system_misc.yml
-  tags: [system]
+  tags: [system, misc]
 
 - import_tasks: system_screensaver.yml
   tags: [system, screensaver]
@@ -31,11 +31,6 @@
 
 - import_tasks: system_default-applications.yml
   tags: [system, default-applications]
-
-
-
-
-
 
 - import_tasks: finder.yml
   tags: [finder]

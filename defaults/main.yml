@@ -3,24 +3,50 @@
 system: {}
 system_defaults:
   ui:
-    interface_style: "Light" # other val is: "Light"
+    # Overall system interface style
+    # Values: "Light", "Dark"
+    interface_style: "Light"
+
     expand_save_panel_by_default: no
     expand_print_panel_by_default: no
+
+    # Window action when double clicking on the titlebar of a window
+    # Values: "Maximize", "Minimize"
     doubleclick_on_titlebar_action: "Maximize" # other val is: "Minimize"
+
+    # Smoothing fonts on non apple displays
     enable_subpixel_font_rendering: no
+
+    # Show the control focus ring
     enable_focus_ring: yes
+
     show_all_file_extensions: no
     disable_dashboard: yes
+
+    # Open directories if you drag something onto it
     enable_springloading_directories: yes
     springloading_directories_delay: 2
+
     window_resize_speed: 0.2
     enable_opening_closing_window_animations: yes
-    show_scrollbars: "WhenScrolling" # other val is: "Always"
+
+    # Show scrollbars
+    # Values: "WhenScrolling", "Always"
+    show_scrollbars: "WhenScrolling"
+
     enable_menubar_transparency: yes
+
   screensaver:
+    # Screensaver activation delay in seconds
+    # 0 disables the screensaver
     activation_delay: 0
+
+    # Ask for user password when screensaver is active
     ask_password: no
+
+    # Delay in seconds after which password is asked
     ask_password_delay: 0
+
   input:
     enable_auto_correct: yes
     enable_smart_quotes: yes
@@ -28,18 +54,35 @@ system_defaults:
     enable_automatic_capitalization: yes
     enable_automatic_periods: yes
     enable_continuous_spell_checking: yes
-    key_repeat_rate: 2 # min = 1
-    initial_key_repeat_delay: 22
-    enable_full_keyboard_access: no
+
+    # If enabled, you get a special char menu on 
+    # certain letters instead of key repeat
     enable_press_and_hold: yes
-    enable_space_hotkeys: []
+
+    # Key repeat speed
+    # Min value is 1
+    key_repeat_rate: 2 # min = 1
+
+    # Delay time until key repeat kicks in
+    initial_key_repeat_delay: 22
+
+    # Enables selections of dialog buttons with tab key
+    enable_full_keyboard_access: no
+
+    # Space switching hotkeys (ctrl + 1-9)
+    # Values: 1-9 for which the hotkeys should
+    # be enabled e.g. [1, 2, 3, 4] for 4 spaces
+    enable_space_hotkeys: no
+
   hostname:
     computername: null
     hostname: null
     localhostname: null
+
   security:
     enable_gatekeeper: yes
     enable_quarantine: yes
+
   misc:
     save_application_state_on_quit: yes
     disable_dsstore_on_network_shares: no
@@ -52,6 +95,11 @@ system_defaults:
     enable_startup_sound: yes
     enable_sudden_motion_sensor: yes
     enable_hibernation: yes
+
+  # Default filetype <-> app associations
+  # you need the application bundle name
+  # e.g.
+  # - { extension: avi, handler: com.colliderli.iina }
   default_applications: []
 
 
@@ -104,7 +152,6 @@ dock_defaults:
   spacers: []
 
 
-## SAFARI
 safari: {}
 safari_defaults:
   show_full_url_in_address_bar: no
@@ -117,19 +164,15 @@ safari_defaults:
   search_with_word_start_only: yes
 
 
-## MAIL
 mail: {}
 mail_defaults:
   address_include_name_on_pasteboard: yes
 
 
-## TEXTEDIT
 textedit: {}
 textedit_defaults:
   default_doc_plaintext: no
 
-
-## TERMINAL
 
 terminal: {}
 terminal_defaults:
