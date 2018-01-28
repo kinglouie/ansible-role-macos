@@ -8,12 +8,7 @@
   changed_when: false
 
 - name: Screensaver - Change idleTime type to int.
-  command: "{{ item }}"
-  with_items:
-    - defaults -currentHost write com.apple.screensaver idleTime -int "{{ system.screensaver.activation_delay }}"
-    - defaults -currentHost write com.apple.screensaver PrefsVersion -int 100
-    - defaults -currentHost write com.apple.screensaver CleanExit -string YES
-    - defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName -string "Flurry" displayName -string "Flurry" path -string "/System/Library/Screen Savers/Flurry.saver" type -int 0
+  command: defaults -currentHost write com.apple.screensaver idleTime -int "{{ system.screensaver.activation_delay }}"
   when: idletime_type.stdout.find('string') != -1
   no_log: true
 
@@ -38,3 +33,17 @@
     key: askForPasswordDelay
     type: float
     value: "{{ system.screensaver.ask_password_delay | float }}"
+
+- name: Screensaver - Get active screensaver.
+  shell: defaults -currentHost read com.apple.screensaver
+  register: active_screensaver_result
+  check_mode: no
+  changed_when: false
+
+- name: Screensaver - Set screensaver ({{ system.screensaver.screensaver.name }}).
+  shell: defaults -currentHost write com.apple.screensaver moduleDict -dict \
+          moduleName -string "{{ system.screensaver.screensaver.name }})" \
+          displayName -string "{{ system.screensaver.screensaver.name }}" \
+          path -string "{{ system.screensaver.screensaver.path }}" \
+          type -int 0
+  when: active_screensaver_result.stdout.find(system.screensaver.screensaver.name) == -1

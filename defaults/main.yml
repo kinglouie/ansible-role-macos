@@ -9,16 +9,16 @@ system_defaults:
     # VALUES: "Light", "Dark"
     interface_style: "Light"
 
-    # By default the osx save/print dialog opens in a
+    # By default the macOS save/print dialog opens in a
     # simplified version, enable to show the full dialog
     # by default.
-    expand_save_panel_by_default: no
-    expand_print_panel_by_default: no
+    expand_save_panel: no
+    expand_print_panel: no
 
     # Window action when double clicking on 
     # the titlebar of a window.
     # VALUES: "Maximize", "Minimize"
-    doubleclick_on_titlebar_action: "Maximize" # other val is: "Minimize"
+    titlebar_doubleclick_action: "Maximize"
 
     # Font smoothing on non apple displays
     enable_subpixel_font_rendering: no
@@ -60,6 +60,10 @@ system_defaults:
 
     # Delay in seconds after which password is asked
     ask_password_delay: 0
+
+    screensaver:
+      name: Flurry
+      path: /System/Library/Screen Savers/Flurry.saver
 
   input:
     # Various spell correction settings
@@ -191,7 +195,7 @@ dock_defaults:
   # - name: Safari
   #   path: /Applications/Safari.app
   apps: []
-  
+
   # Spacers to add to dock 
   # example item:
   # - after: Safari

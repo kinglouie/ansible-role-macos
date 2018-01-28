@@ -1,17 +1,17 @@
 ---
 
-- name: UI - Expand save panel by default ({{ system.ui.expand_save_panel_by_default }}).
+- name: UI - Expand save panel by default ({{ system.ui.expand_save_panel }}).
   osx_defaults:
     key: NSNavPanelExpandedStateForSaveMode
     type: bool
-    value: "{{ system.ui.expand_save_panel_by_default | bool }}"
+    value: "{{ system.ui.expand_save_panel | bool }}"
   notify: Restart Finder
 
-- name: UI - Expand print panel by default ({{ system.ui.expand_print_panel_by_default }}).
+- name: UI - Expand print panel by default ({{ system.ui.expand_print_panel }}).
   osx_defaults:
     key: PMPrintingExpandedStateForPrint
     type: bool
-    value: "{{ system.ui.expand_print_panel_by_default | bool }}"
+    value: "{{ system.ui.expand_print_panel | bool }}"
   notify: Restart Finder
 
 - name: UI - Enable spring loading for directories ({{ system.ui.enable_springloading_directories }}).
@@ -26,11 +26,11 @@
     type: float
     value: "{{ system.ui.springloading_directories_delay }}"
 
-- name: UI - Set action for double click on titlebar ({{ system.ui.doubleclick_on_titlebar_action }}).
+- name: UI - Set action for double click on titlebar ({{ system.ui.titlebar_doubleclick_action }}).
   osx_defaults:
     key: AppleActionOnDoubleClick
     type: string
-    value: "{{ system.ui.doubleclick_on_titlebar_action }}"
+    value: "{{ system.ui.titlebar_doubleclick_action }}"
 
 - name: UI - Set interface style ({{ system.ui.interface_style }}).
   osx_defaults:
