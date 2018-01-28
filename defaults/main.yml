@@ -3,30 +3,44 @@
 system: {}
 system_defaults:
   ui:
-    # Overall system interface style
-    # Values: "Light", "Dark"
+    # Overall system interface color
+    # This influences Menubar, Dock, Spotlight
+    # and a few others.
+    # VALUES: "Light", "Dark"
     interface_style: "Light"
 
+    # By default the osx save/print dialog opens in a
+    # simplified version, enable to show the full dialog
+    # by default.
     expand_save_panel_by_default: no
     expand_print_panel_by_default: no
 
-    # Window action when double clicking on the titlebar of a window
-    # Values: "Maximize", "Minimize"
+    # Window action when double clicking on 
+    # the titlebar of a window.
+    # VALUES: "Maximize", "Minimize"
     doubleclick_on_titlebar_action: "Maximize" # other val is: "Minimize"
 
-    # Smoothing fonts on non apple displays
+    # Font smoothing on non apple displays
     enable_subpixel_font_rendering: no
 
-    # Show the control focus ring
+    # Focus ring is drawn around focused dialog
+    # elements like buttons and textfields
     enable_focus_ring: yes
 
+    # macOS ommits common file extensions
+    # by default
     show_all_file_extensions: no
+
+    # Antique osx dashboard, this was
+    # more or less replaced by the sidebar
     disable_dashboard: yes
 
-    # Open directories if you drag something onto it
+    # Open directory if you drag 
+    # a file/folder onto it
     enable_springloading_directories: yes
     springloading_directories_delay: 2
 
+    #
     window_resize_speed: 0.2
     enable_opening_closing_window_animations: yes
 
@@ -48,6 +62,7 @@ system_defaults:
     ask_password_delay: 0
 
   input:
+    # Various spell correction settings
     enable_auto_correct: yes
     enable_smart_quotes: yes
     enable_smart_dashes: yes
@@ -70,8 +85,6 @@ system_defaults:
     enable_full_keyboard_access: no
 
     # Space switching hotkeys (ctrl + 1-9)
-    # Values: 1-9 for which the hotkeys should
-    # be enabled e.g. [1, 2, 3, 4] for 4 spaces
     enable_space_hotkeys: no
 
   hostname:
@@ -80,7 +93,12 @@ system_defaults:
     localhostname: null
 
   security:
+    # Gatekeeper won't allow you to easily install
+    # unsigned apps not downloaded from the Mac App Store
     enable_gatekeeper: yes
+
+    # Quarantine asks you if you really want
+    # to open a downloaded file
     enable_quarantine: yes
 
   misc:
@@ -105,8 +123,15 @@ system_defaults:
 
 finder: {}
 finder_defaults:
-  new_window_target: "PfHm" # home
+  # Default location for new finder
+  # windows/tabs
+  # VALUES: "PfHm" for homedir, 
+  new_window_target: "PfHm" 
+
+  # finder warns when you are changing
+  # a file extension
   show_file_extensions_warning: yes
+
   warn_before_emptying_the_trash: yes
   show_all_files: no
   keep_folders_on_top: yes
@@ -123,6 +148,8 @@ finder_defaults:
   iconview_show_label_on_bottom: yes
   hide_user_library: yes
   hide_system_volumes: yes
+
+  # This affect the Getinfo pane
   expand_infopane: 
     - { name: General , value: yes }
     - { name: MetaData , value: yes }
@@ -131,24 +158,43 @@ finder_defaults:
     - { name: Comments , value: yes }
     - { name: Preview , value: yes }
     - { name: Privileges , value: yes }
+
+  # Viewsettings for desktop or finder
+  # when using the iconview layout
   iconview_arrange_by: "grid"
   iconview_grid_spacing: 60
   iconview_icon_size: 50
+
   enable_quicklook_text_selection: no
   disable_all_animations: no
 
 
 dock: {}
 dock_defaults:
+  # icon size
   tile_size: 50
+
   show_idicator_lights: yes
   hidden_items_translucent: no
   fade_in_time: 0
   rearrange_spaces_by_last_use: yes
   autohide: no
+
+  # if enabled configured apps will be added
+  # even if they're not installed
   apps_force_install: no
+
   apps_remove_undefined: yes
+
+  # Apps to add to dock
+  # example item:
+  # - name: Safari
+  #   path: /Applications/Safari.app
   apps: []
+  
+  # Spacers to add to dock 
+  # example item:
+  # - after: Safari
   spacers: []
 
 

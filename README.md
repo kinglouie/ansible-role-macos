@@ -50,7 +50,7 @@ You can set default filetype associations like this:
 
 ## Example Playbook
 
-    - hosts: servers
+    - hosts: all
       roles:
          - geerlingguy.homebrew
          - kinglouie.macos
