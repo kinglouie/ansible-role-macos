@@ -167,7 +167,7 @@ finder_defaults:
   show_all_files: no
 
   # Keep folders on top when you sort by name?
-  keep_folders_on_top: yes
+  keep_folders_on_top: no
 
   # Show posix path in finder titlebar?
   show_full_path_in_titlebar: no
@@ -182,7 +182,7 @@ finder_defaults:
   enable_quit_menu_item: no
 
   # VALUES: "icnv" for icon view, "clmv" for column view, "Flwv" for cover flow view
-  default_view_style: "Nlsv"
+  default_view_style: "icnv"
 
   # Which items should be shown on desktop?
   show_external_harddrives_on_desktop: yes
@@ -199,20 +199,22 @@ finder_defaults:
   # Which panes of the Getinfo window should be expanded by default?
   expand_infopane: 
     - { name: General , value: yes }
-    - { name: MetaData , value: yes }
-    - { name: OpenWith , value: yes }
-    - { name: Name , value: yes }  
-    - { name: Comments , value: yes }
+    - { name: MetaData , value: no }
+    - { name: OpenWith , value: no }
+    - { name: Name , value: no }  
+    - { name: Comments , value: no }
     - { name: Preview , value: yes }
-    - { name: Privileges , value: yes }
+    - { name: Privileges , value: no }
 
   # Viewsettings for desktop or finder
   # when using the iconview layout
   iconview_arrange_by: "grid"
-  iconview_grid_spacing: 60
-  iconview_icon_size: 50
+  iconview_grid_spacing: 54
+  iconview_icon_size: 64
   iconview_show_item_info: no
-  
+  iconview_text_size: 12
+  iconview_show_icon_preview: yes
+
   # When disabled label is shown to the right of icons
   iconview_show_label_on_bottom: yes
 
@@ -243,7 +245,7 @@ dock_defaults:
 
   # removes apps from the dock that are 
   # not defined in the apps list
-  apps_remove_undefined: yes
+  apps_remove_undefined: no
 
   # Apps to add to dock
   # example item:

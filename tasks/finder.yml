@@ -214,6 +214,14 @@
     value: "{{ finder.enable_quicklook_text_selection | bool }}"
   notify: Restart Finder
 
+- name: Finder - Disable window and get info animations ({{ finder.disable_all_animations }}).
+  osx_defaults:
+    domain: com.apple.finder
+    key: DisableAllAnimations
+    type: bool
+    value: "{{ finder.disable_all_animations | bool }}"
+  notify: Restart Finder
+
 # @TODO 
 # Replace this shit as soon as ansible supports osx_defaults with dicts
 
@@ -225,7 +233,7 @@
   register: finder_iconview_arrange_by_status
   changed_when: false
 
-- name: Finder - Set arrange by for icons on the desktop and in other icon views ({{ finder.iconview_arrange_by }}).
+- name: Finder - Set iconview arrange by ({{ finder.iconview_arrange_by }}).
   command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
   with_indexed_items:
     - { name: "DesktopViewSettings:IconViewSettings:arrangeBy", value: "{{ finder.iconview_arrange_by }}" }
@@ -263,7 +271,7 @@
   register: finder_iconview_icon_size_value
   changed_when: false
 
-- name: Finder - Set size of icons on the desktop and in other icon views ({{ finder.iconview_icon_size }}).
+- name: Finder - Set iconview icon size value ({{ finder.iconview_icon_size }}).
   command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
   with_indexed_items:
     - { name: "DesktopViewSettings:IconViewSettings:iconSize", value: "{{ \"%.6f\" | format(finder.iconview_icon_size|float) }}" }
@@ -271,14 +279,56 @@
   notify: Restart Finder
   when: finder_iconview_icon_size_value.results[item.0].stdout != item.1.value
 
-- name: Finder - Disable window and get info animations ({{ finder.disable_all_animations }}).
-  osx_defaults:
-    domain: com.apple.finder
-    key: DisableAllAnimations
-    type: bool
-    value: "{{ finder.disable_all_animations | bool }}"
-  notify: Restart Finder
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
 
+- name: Finder - Get iconview text size value.
+  command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
+  with_items:
+    - "DesktopViewSettings:IconViewSettings:textSize"
+    - "StandardViewSettings:IconViewSettings:textSize"
+  register: finder_iconview_text_size_value
+  changed_when: false
+
+- name: Finder - Set iconview text size value ({{ finder.iconview_text_size }}).
+  command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
+  with_indexed_items:
+    - { name: "DesktopViewSettings:IconViewSettings:textSize", value: "{{ \"%.6f\" | format(finder.iconview_text_size|float) }}" }
+    - { name: "StandardViewSettings:IconViewSettings:textSize", value: "{{ \"%.6f\" | format(finder.iconview_text_size|float) }}" }
+  notify: Restart Finder
+  when: finder_iconview_text_size_value.results[item.0].stdout != item.1.value
+
+# @TODO 
+# Replace this shit as soon as ansible supports osx_defaults with dicts
+
+- name: Finder - Show preview in iconsviews (Read settings).
+  command: /usr/libexec/PlistBuddy -c "Print :{{ item }}" ~/Library/Preferences/com.apple.finder.plist
+  with_items:
+    - "DesktopViewSettings:IconViewSettings:showIconPreview"
+    - "StandardViewSettings:IconViewSettings:showIconPreview"
+  register: finder_iconview_show_icon_preview_value
+  changed_when: false
+
+- name: Finder - Show preview in iconsviews (Create vars).
+  set_fact:
+    spii_tmp_item: "{{ item.stdout | bool }}"
+  with_items: "{{ finder_iconview_show_icon_preview_value.results }}"
+  register: spii_tmp_items
+  no_log: true
+
+- name: Finder - Show preview in iconsviews (Create vars).
+  set_fact:
+    finder_iconview_show_icon_preview_value_parsed: "{{ spii_tmp_items.results | map(attribute='ansible_facts.spii_tmp_item') | list }}"
+
+- name: Finder - Show preview in iconsviews ({{ finder.iconview_show_icon_preview }}).
+  command: /usr/libexec/PlistBuddy -c "Set :{{ item.1.name }} {{ item.1.value }}" ~/Library/Preferences/com.apple.finder.plist
+  with_indexed_items:
+    - { name: "DesktopViewSettings:IconViewSettings:showIconPreview", value: "{{ finder.iconview_show_icon_preview | bool }}" }
+    - { name: "StandardViewSettings:IconViewSettings:showIconPreview", value: "{{ finder.iconview_show_icon_preview | bool }}" }
+  notify: Restart Finder
+  when: finder_iconview_show_icon_preview_value_parsed[item.0] != item.1.value
+
+# @TODO 
 # Show Drives and Servers in Sidebar
 #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
 #/usr/bin/defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks  -bool true
