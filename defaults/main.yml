@@ -80,7 +80,7 @@ system_defaults:
 
     # Key repeat speed
     # Min value is 1
-    key_repeat_rate: 2 # min = 1
+    key_repeat_rate: 2
 
     # Delay time until key repeat kicks in
     initial_key_repeat_delay: 22
@@ -92,8 +92,19 @@ system_defaults:
     enable_space_hotkeys: no
 
   hostname:
+    # computername is the so-called “user-friendly” name for the Mac, 
+    # it’s what will show up on the Mac itself and what will be 
+    # visible to others when connecting to it over a local network. 
+    # This is also what’s visible under the Sharing preference panel.
     computername: null
+
+    # hostname is the name assigned to the computer as visible 
+    # from the command line, and it’s also used by local and 
+    # remote networks when connecting through SSH and Remote Login.
     hostname: null
+
+    # localhostname is the name identifier used by Bonjour and 
+    # visible through file sharing services like AirDrop
     localhostname: null
 
   security:
@@ -102,26 +113,39 @@ system_defaults:
     enable_gatekeeper: yes
 
     # Quarantine asks you if you really want
-    # to open a downloaded file
+    # to open a downloaded executable
     enable_quarantine: yes
 
   misc:
     save_application_state_on_quit: yes
+
     disable_dsstore_on_network_shares: no
+
     disable_dsstore_on_usb_drives: no
+
     disable_disk_image_verification: no
+
     disable_spotlight_network_indexing: no
+
     save_new_docs_to_icloud: yes
+
     enable_ssh: no
+
     enable_crash_reporter: yes
+
     enable_startup_sound: yes
+
     enable_sudden_motion_sensor: yes
+
     enable_hibernation: yes
 
   # Default filetype <-> app associations
-  # you need the application bundle name
-  # e.g.
-  # - { extension: avi, handler: com.colliderli.iina }
+  # Values:
+  #   extension: file extension
+  #   handler: application bundle identifier
+  # Example:
+  #   default_applications:
+  #     - { extension: avi, handler: com.colliderli.iina }
   default_applications: []
 
 
@@ -137,23 +161,42 @@ finder_defaults:
   show_file_extensions_warning: yes
 
   warn_before_emptying_the_trash: yes
+
+  # Should dotfiles be shown?
+  # "cmd + shift - ." toggles this
   show_all_files: no
+
+  # Keep folders on top when you sort by name?
   keep_folders_on_top: yes
+
+  # Show posix path in finder titlebar?
   show_full_path_in_titlebar: no
+
+  # Show interactive pathbar at the bottom?
   show_pathbar: no
+
+  # Show statusbar with selection and filesize info at the bottom?
   show_statusbar: no
+
+  # Should finder be quitable? (It instantly restarts anyway)
   enable_quit_menu_item: no
-  default_view_style: "Nlsv" # other vals are: "icnv", "clmv", "Flwv"
+
+  # VALUES: "icnv" for icon view, "clmv" for column view, "Flwv" for cover flow view
+  default_view_style: "Nlsv"
+
+  # Which items should be shown on desktop?
   show_external_harddrives_on_desktop: yes
   show_harddrives_on_desktop: yes
   show_mounted_servers_on_desktop: yes
   show_removable_media_on_desktop: yes
-  iconview_show_item_info: no
-  iconview_show_label_on_bottom: yes
+
+  # Hide ~/Library ?
   hide_user_library: yes
+
+  # Hide /Volumes ?
   hide_system_volumes: yes
 
-  # This affect the Getinfo pane
+  # Which panes of the Getinfo window should be expanded by default?
   expand_infopane: 
     - { name: General , value: yes }
     - { name: MetaData , value: yes }
@@ -168,8 +211,14 @@ finder_defaults:
   iconview_arrange_by: "grid"
   iconview_grid_spacing: 60
   iconview_icon_size: 50
+  iconview_show_item_info: no
+  
+  # When disabled label is shown to the right of icons
+  iconview_show_label_on_bottom: yes
 
+  # Doesn't work on newer macOS versions
   enable_quicklook_text_selection: no
+
   disable_all_animations: no
 
 
@@ -179,15 +228,21 @@ dock_defaults:
   tile_size: 50
 
   show_idicator_lights: yes
+
   hidden_items_translucent: no
+
   fade_in_time: 0
+
   rearrange_spaces_by_last_use: yes
+
   autohide: no
 
   # if enabled configured apps will be added
   # even if they're not installed
   apps_force_install: no
 
+  # removes apps from the dock that are 
+  # not defined in the apps list
   apps_remove_undefined: yes
 
   # Apps to add to dock
@@ -205,12 +260,19 @@ dock_defaults:
 safari: {}
 safari_defaults:
   show_full_url_in_address_bar: no
+
   open_safe_files_automatically: no
+
   enable_status_bar: no
+
   enable_developer_menu: no
+
   autofill_passwords: yes
+
   show_favorites_bar: no
+
   disable_thumbnail_cache: no
+
   search_with_word_start_only: yes
 
 

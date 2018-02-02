@@ -12,37 +12,24 @@ Configures macOS and default apple applications by mostly using the defaults mod
 
 ## Role Variables
 
-Most vars are self explanatory just check out defaults at defaults/main.yml
+There are quite a few, check out [defaults/main.yml](defaults/main.yml), most vars should be self explanatory.
+Since this role's vars are organized in dictionaries you have to override the defaults in an own dictionary that will be merged with the defaults.
 
+#### Example:
+In order to override this:
 
+```
+system_defaults:
+  ui:
+    interface_style: "Light"
+```
+You have to ommit the `_defaults` suffix like this:
 
-##### default applications
-You can set default filetype associations like this:
-
-	system_default_applications:
-	  - { extension: avi, handler: com.colliderli.iina }
-	  - { extension: md, handler: com.uranusjr.macdown }
-	  - { extension: cfg, handler: com.sublimetext.3 }
-
-##### dock apps
-
-	dock_apps:
-	  - name: Safari
-	    path: /Applications/Safari.app
-	  - name: iTunes
-	    path: /Applications/iTunes.app
-	  - name: Mail
-	    path: /Applications/Mail.app   
-	  - name: iTerm
-	    path: /Applications/iTerm.app
-	  - name: Tower
-	    path: /Applications/Tower.app
-	  - name: Sublime Text
-	    path: /Applications/Sublime Text.app
-	dock_spacers:
-	  - after: iTunes
-	  - after: Mail
-
+```
+system:
+  ui:
+    interface_style: "Dark"
+```
 
 ## Dependencies
 
@@ -54,6 +41,17 @@ You can set default filetype associations like this:
       roles:
          - geerlingguy.homebrew
          - kinglouie.macos
+
+## TODO
+
+- Adjust defaults so they match macOS defaults.
+
+## Contributing
+
+I will happily merge PR's with new tasks, just make sure...
+
+- that your tasks are idempotent
+- that the defaults match the defaults of macOS
 
 
 
