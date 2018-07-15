@@ -1,8 +1,13 @@
 ---
 
+######################################
+#                macOS               #
+######################################
+
 system: {}
 system_defaults:
   ui:
+
     # Overall system interface color
     # This influences Menubar, Dock, Spotlight
     # and a few others.
@@ -51,6 +56,7 @@ system_defaults:
     enable_menubar_transparency: yes
 
   screensaver:
+
     # Screensaver activation delay in seconds
     # 0 disables the screensaver
     activation_delay: 0
@@ -66,6 +72,7 @@ system_defaults:
       path: /System/Library/Screen Savers/Flurry.saver
 
   input:
+
     # Various spell correction settings
     enable_auto_correct: yes
     enable_smart_quotes: yes
@@ -117,6 +124,7 @@ system_defaults:
     enable_quarantine: yes
 
   misc:
+
     save_application_state_on_quit: yes
 
     disable_dsstore_on_network_shares: no
@@ -149,8 +157,13 @@ system_defaults:
   default_applications: []
 
 
+######################################
+#               Finder               #
+######################################
+
 finder: {}
 finder_defaults:
+
   # Default location for new finder
   # windows/tabs
   # VALUES: "PfHm" for homedir, 
@@ -206,13 +219,25 @@ finder_defaults:
     - { name: Preview , value: yes }
     - { name: Privileges , value: no }
 
-  # Viewsettings for desktop or finder
-  # when using the iconview layout
-  iconview_arrange_by: "grid"
+  # Automatic arrangement of icons
+  # Values: "none", "grid", "name", "kind", "dateModified",
+  #         "dateCreated", "dateLastOpened", "dateAdded", "size", "label"
+  iconview_arrange_by: "none"
+
+  # controls the gap between icons 
+  # when using arrange by grid
   iconview_grid_spacing: 54
+
+  # Size of the icons
   iconview_icon_size: 64
+
+  # Show item info below item name?
   iconview_show_item_info: no
+
+  # Font size 
   iconview_text_size: 12
+
+  # Show item preview as icon? (mostly useful for images)
   iconview_show_icon_preview: yes
 
   # When disabled label is shown to the right of icons
@@ -221,11 +246,17 @@ finder_defaults:
   # Doesn't work on newer macOS versions
   enable_quicklook_text_selection: no
 
+  #
   disable_all_animations: no
 
 
+######################################
+#                Dock                #
+######################################
+
 dock: {}
 dock_defaults:
+
   # icon size
   tile_size: 50
 
@@ -259,8 +290,13 @@ dock_defaults:
   spacers: []
 
 
+######################################
+#               Safari               #
+######################################
+
 safari: {}
 safari_defaults:
+
   show_full_url_in_address_bar: no
 
   open_safe_files_automatically: no
@@ -278,16 +314,31 @@ safari_defaults:
   search_with_word_start_only: yes
 
 
+######################################
+#                Mail                #
+######################################
+
 mail: {}
 mail_defaults:
+
   address_include_name_on_pasteboard: yes
 
 
+######################################
+#              TextEdit              #
+######################################
+
 textedit: {}
 textedit_defaults:
+
   default_doc_plaintext: no
 
 
+######################################
+#              Terminal              #
+######################################
+
 terminal: {}
 terminal_defaults:
+
   enable_secure_keyboard_entry: yes
