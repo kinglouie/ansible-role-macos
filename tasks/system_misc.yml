@@ -37,7 +37,7 @@
     state: "{{ 'absent' if system.misc.enable_crash_reporter else 'present' }}"
     key: DialogType
     type: string
-    value: "none" 
+    value: "none"
 
 - name: Misc - Get startup sound status.
   command: nvram SystemAudioVolume
@@ -57,16 +57,16 @@
     type: bool
     value: "{{ system.misc.save_new_docs_to_icloud | bool }}"
 
-- name: Misc - Get ssh service status.
-  shell: systemsetup -getremotelogin
-  register: ssh_status
-  changed_when: false
-  become: yes
+#- name: Misc - Get ssh service status.
+#  shell: systemsetup -getremotelogin
+#  register: ssh_status
+#  changed_when: false
+#  become: yes
 
-- name: Misc - Enable ssh ({{ system.misc.enable_ssh }}).
-  command: "launchctl {{ 'load -w ' if system.misc.enable_ssh else 'unload -w' }} /System/Library/LaunchDaemons/ssh.plist"
-  become: yes
-  when: ssh_status.stdout.find("Off") != -1 and system.misc.enable_ssh or ssh_status.stdout.find("On") != -1 and not system.misc.enable_ssh
+#- name: Misc - Enable ssh ({{ system.misc.enable_ssh }}).
+#  command: "launchctl {{ 'load -w ' if system.misc.enable_ssh else 'unload -w' }} /System/Library/LaunchDaemons/ssh.plist"
+#  become: yes
+#  when: ssh_status.stdout.find("Off") != -1 and system.misc.enable_ssh or ssh_status.stdout.find("On") != -1 and not system.misc.enable_ssh
 
 - name: Misc - Read hibernation setting.
   shell: pmset -g | grep hibernatemode
@@ -89,7 +89,7 @@
 - name: Misc - Enable sudden motion sensor ({{ system.misc.enable_sudden_motion_sensor }}).
   become: true
   shell: pmset -a sms "{{ system.misc.enable_sudden_motion_sensor | int }}"
-  when: 
+  when:
     - sms_status.stdout != ""
     - (sms_status.stdout.find("1") != -1 and not system.misc.enable_sudden_motion_sensor) or
       (sms_status.stdout.find("0") != -1 and system.misc.enable_sudden_motion_sensor)
@@ -101,6 +101,6 @@
     key: ExternalVolumesIgnore
     type: bool
     value: "{{ system.misc.disable_spotlight_network_indexing | bool }}"
-    
+
 #- name: Misc - Remove duplicates in the “Open With” menu.
 #  command: /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local
