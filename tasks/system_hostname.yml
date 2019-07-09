@@ -8,7 +8,7 @@
   when: system.hostname.computername != None
 
 - name: Hostname - Update ComputerName
-  shell: scutil --set ComputerName {{ hostname_computername }}
+  shell: scutil --set ComputerName {{ system.hostname.computername }}
   become: true
   when: system.hostname.computername != None and (system.hostname.computername not in computername_result.stdout)
 
