@@ -20,7 +20,7 @@ system_defaults:
     expand_save_panel: no
     expand_print_panel: no
 
-    # Window action when double clicking on 
+    # Window action when double clicking on
     # the titlebar of a window.
     # VALUES: "Maximize", "Minimize"
     titlebar_doubleclick_action: "Maximize"
@@ -40,7 +40,7 @@ system_defaults:
     # more or less replaced by the sidebar
     disable_dashboard: yes
 
-    # Open directory if you drag 
+    # Open directory if you drag
     # a file/folder onto it
     enable_springloading_directories: yes
     springloading_directories_delay: 2
@@ -81,7 +81,7 @@ system_defaults:
     enable_automatic_periods: yes
     enable_continuous_spell_checking: yes
 
-    # If enabled, you get a special char menu on 
+    # If enabled, you get a special char menu on
     # certain letters instead of key repeat
     enable_press_and_hold: yes
 
@@ -99,18 +99,18 @@ system_defaults:
     enable_space_hotkeys: no
 
   hostname:
-    # computername is the so-called “user-friendly” name for the Mac, 
-    # it’s what will show up on the Mac itself and what will be 
-    # visible to others when connecting to it over a local network. 
+    # computername is the so-called “user-friendly” name for the Mac,
+    # it’s what will show up on the Mac itself and what will be
+    # visible to others when connecting to it over a local network.
     # This is also what’s visible under the Sharing preference panel.
     computername: null
 
-    # hostname is the name assigned to the computer as visible 
-    # from the command line, and it’s also used by local and 
+    # hostname is the name assigned to the computer as visible
+    # from the command line, and it’s also used by local and
     # remote networks when connecting through SSH and Remote Login.
     hostname: null
 
-    # localhostname is the name identifier used by Bonjour and 
+    # localhostname is the name identifier used by Bonjour and
     # visible through file sharing services like AirDrop
     localhostname: null
 
@@ -141,8 +141,6 @@ system_defaults:
 
     enable_crash_reporter: yes
 
-    enable_startup_sound: yes
-
     enable_sudden_motion_sensor: yes
 
     enable_hibernation: yes
@@ -166,8 +164,8 @@ finder_defaults:
 
   # Default location for new finder
   # windows/tabs
-  # VALUES: "PfHm" for homedir, 
-  new_window_target: "PfHm" 
+  # VALUES: "PfHm" for homedir,
+  new_window_target: "PfHm"
 
   # finder warns when you are changing
   # a file extension
@@ -210,11 +208,11 @@ finder_defaults:
   hide_system_volumes: yes
 
   # Which panes of the Getinfo window should be expanded by default?
-  expand_infopane: 
+  expand_infopane:
     - { name: General , value: yes }
     - { name: MetaData , value: no }
     - { name: OpenWith , value: no }
-    - { name: Name , value: no }  
+    - { name: Name , value: no }
     - { name: Comments , value: no }
     - { name: Preview , value: yes }
     - { name: Privileges , value: no }
@@ -224,7 +222,7 @@ finder_defaults:
   #         "dateCreated", "dateLastOpened", "dateAdded", "size", "label"
   iconview_arrange_by: "none"
 
-  # controls the gap between icons 
+  # controls the gap between icons
   # when using arrange by grid
   iconview_grid_spacing: 54
 
@@ -234,7 +232,7 @@ finder_defaults:
   # Show item info below item name?
   iconview_show_item_info: no
 
-  # Font size 
+  # Font size
   iconview_text_size: 12
 
   # Show item preview as icon? (mostly useful for images)
@@ -274,7 +272,7 @@ dock_defaults:
   # even if they're not installed
   apps_force_install: no
 
-  # removes apps from the dock that are 
+  # removes apps from the dock that are
   # not defined in the apps list
   apps_remove_undefined: no
 
@@ -284,7 +282,7 @@ dock_defaults:
   #   path: /Applications/Safari.app
   apps: []
 
-  # Spacers to add to dock 
+  # Spacers to add to dock
   # example item:
   # - after: Safari
   spacers: []

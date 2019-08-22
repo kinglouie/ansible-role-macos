@@ -39,18 +39,6 @@
     type: string
     value: "none"
 
-- name: Misc - Get startup sound status.
-  command: nvram SystemAudioVolume
-  register: startup_sound_status
-  become: yes
-  changed_when: false
-  failed_when: false
-
-- name: Misc - Enable startup sound ({{ system.misc.enable_startup_sound }}).
-  command: "{{ 'nvram -d SystemAudioVolume' if system.misc.enable_startup_sound else 'nvram SystemAudioVolume=\" \"' }}"
-  become: yes
-  when: startup_sound_status.stderr.find("Error") != -1 and not system.misc.enable_startup_sound or startup_sound_status.stderr.find("Error") == -1 and system.misc.enable_startup_sound
-
 - name: Misc - Save new docs to icloud by default ({{ system.misc.save_new_docs_to_icloud }}).
   osx_defaults:
     key: NSDocumentSaveNewDocumentsToCloud
