@@ -45,16 +45,16 @@
     type: bool
     value: "{{ system.misc.save_new_docs_to_icloud | bool }}"
 
-#- name: Misc - Get ssh service status.
-#  shell: systemsetup -getremotelogin
-#  register: ssh_status
-#  changed_when: false
-#  become: yes
+- name: Misc - Get ssh service status.
+  shell: systemsetup -getremotelogin
+  register: ssh_status
+  changed_when: false
+  become: yes
 
-#- name: Misc - Enable ssh ({{ system.misc.enable_ssh }}).
-#  command: "launchctl {{ 'load -w ' if system.misc.enable_ssh else 'unload -w' }} /System/Library/LaunchDaemons/ssh.plist"
-#  become: yes
-#  when: ssh_status.stdout.find("Off") != -1 and system.misc.enable_ssh or ssh_status.stdout.find("On") != -1 and not system.misc.enable_ssh
+- name: Misc - Enable ssh ({{ system.misc.enable_ssh }}).
+  command: "systemsetup -setremotelogin {{ 'on' if system.misc.enable_ssh else 'off' }} /System/Library/LaunchDaemons/ssh.plist"
+  become: yes
+  when: ssh_status.stdout.find("Off") != -1 and system.misc.enable_ssh or ssh_status.stdout.find("On") != -1 and not system.misc.enable_ssh
 
 - name: Misc - Read hibernation setting.
   shell: pmset -g | grep hibernatemode
