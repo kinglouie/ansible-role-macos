@@ -52,9 +52,11 @@
   become: yes
 
 - name: Misc - Enable ssh ({{ system.misc.enable_ssh }}).
-  command: "systemsetup -setremotelogin {{ 'on' if system.misc.enable_ssh else 'off' }} /System/Library/LaunchDaemons/ssh.plist"
+  command: "systemsetup -f -setremotelogin {{ 'on' if system.misc.enable_ssh else 'off' }} /System/Library/LaunchDaemons/ssh.plist"
   become: yes
   when: ssh_status.stdout.find("Off") != -1 and system.misc.enable_ssh or ssh_status.stdout.find("On") != -1 and not system.misc.enable_ssh
+  register: enable_ssh_result
+  changed_when: "not enable_ssh_result.stdout|search('already')"
 
 - name: Misc - Read hibernation setting.
   shell: pmset -g | grep hibernatemode
