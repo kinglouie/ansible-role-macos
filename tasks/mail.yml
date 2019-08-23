@@ -7,3 +7,12 @@
     type: bool
     value: "{{ mail.address_include_name_on_pasteboard | bool }}"
   notify: Restart Mail
+
+- name: Mail - Order mails by thread ({{ mail.enable_threading }}).
+  osx_defaults:
+    domain: com.apple.mail
+    key: ThreadingDefault
+    type: bool
+    value: "{{ mail.enable_threading | bool }}"
+  notify: Restart Mail
+

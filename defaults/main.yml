@@ -321,6 +321,8 @@ mail_defaults:
 
   address_include_name_on_pasteboard: yes
 
+  enable_threading: yes
+
 
 ######################################
 #              TextEdit              #
