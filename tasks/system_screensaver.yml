@@ -6,6 +6,7 @@
   command: defaults -currentHost read-type com.apple.screensaver idleTime
   register: idletime_type
   changed_when: false
+  failed_when: false
 
 - name: Screensaver - Change idleTime type to int.
   command: defaults -currentHost write com.apple.screensaver idleTime -int "{{ system.screensaver.activation_delay }}"
